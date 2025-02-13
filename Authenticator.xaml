@@ -1,0 +1,61 @@
+﻿<Window x:Class="ReactorSimulator.Authenticator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReactorSimulator"
+        mc:Ignorable="d"
+        Title="Authenticator"
+        Height="600" Width="500"
+        ResizeMode="NoResize"
+        Background="#404040" Foreground="White"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <!-- Title -->
+        <Border Background="#707070" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Padding="20">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25" FontFamily="Trebuchet MS" Foreground="#FFFFFF" Text="Operator Login"/>
+        </Border>
+
+        <!-- Username Box -->
+        <Border Background="#404040" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,99,0,0" Width="100" Height="32.5">
+            <TextBlock x:Name="userNameTextBox" Text="Username:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" FontFamily="Trebuchet MS" FontSize="15" Foreground="#FFFFFF" Background="#404040"/>
+        </Border>
+        <Border Background="#707070" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,136,0,0" Width="300" Height="50">
+            <TextBox x:Name="userNameBox" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trebuchet MS" FontSize="25" Foreground="#FFFFFF" Background="#707070" Width="250"/>
+        </Border>
+
+        <!-- Password Box -->
+        <Border Background="#404040" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,201,0,0" Width="100" Height="32">
+            <TextBlock x:Name="passwordTextBox" Text="Password:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" FontFamily="Trebuchet MS" FontSize="15" Foreground="#FFFFFF" Background="#404040"/>
+        </Border>
+        <Border Background="#707070" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,238,0,0" Width="300" Height="50">
+            <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trebuchet MS" FontSize="25" Foreground="#FFFFFF" Background="#707070" Width="250"/>
+        </Border>
+
+        <!-- Login Buttom -->
+        <Border Background="#5CED73" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,331,0,0" Width="250" Height="50">
+            <Button Background="Transparent" Click="login" BorderBrush="Transparent">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Trebuchet MS" Foreground="#FFFFFF" FontWeight="Bold">Login</TextBlock>
+            </Button>
+        </Border>
+
+        <!-- Register Button -->
+        <Border Background="#D44C4C" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,398,0,0" Width="250" Height="50">
+            <Button Background="Transparent" Click="register" BorderBrush="Transparent">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Trebuchet MS" Foreground="#FFFFFF" FontWeight="Bold">Register</TextBlock>
+            </Button>
+        </Border>
+
+        <!-- Reset Password Button -->
+        <Border Background="#404040" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,458,0,0" Width="100" Height="30">
+            <Button Background="Transparent" Click="resetPassword" BorderBrush="Transparent">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontFamily="Trebuchet MS" Foreground="#FFFFFF" FontWeight="Bold">Forgot password?</TextBlock>
+            </Button>
+        </Border>
+
+        <Border Background="#404040" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,523,0,0" Width="450" Height="50">
+            <TextBlock x:Name="copyright" Text="Copyright © Toby Walters 2025. If you pirate my work I will be sad :(" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" FontFamily="Trebuchet MS" FontSize="9" Foreground="#FFFFFF" Background="#404040" TextWrapping="Wrap"/>
+        </Border>
+
+    </Grid>
+</Window>

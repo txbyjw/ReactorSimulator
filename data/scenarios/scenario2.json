@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "scenario":  2,
+    "name": "Normal Mode",
+    "description": "The reactor starts at optimal operating values. It is your job to maintain it at that state."
+  },
+  "coreTemperature": 330,
+  "corePressure": 155,
+  "coreCoolantFlow": 400,
+  "coreReactivity": 50,
+  "coreIntegrity": 100,
+  "coreFuelIntegrity": 100,
+
+  "controlRodsInsertionLevel": 50,
+
+  "pressuriserTemperature": 330,
+  "pressuriserPressure": 155,
+  "pressuriserFillLevel": 80,
+  "pressuriserHeatingPower": 500,
+  "pressuriserHeaterOn": true,
+  "pressuriserReliefValveOpen": false,
+  "pressuriserSprayNozzlesActive": false,
+
+  "pclTemperature": 300,
+  "pclPressure": 155,
+  "pclCoolantFlow": 400,
+  "pclLowFlow": false,
+  "pclLowPressure": false,
+  "pclHighTemperature": false,
+
+  "sclTemperature": 120,
+  "sclPressure": 10,
+  "sclCoolantFlow": 300,
+  "sclLowFlow": false,
+  "sclLowPressure": false,
+  "sclHighTemperature": false,
+
+  "pgPowerOutput": 0,
+  "pgThermalPower": 0
+}

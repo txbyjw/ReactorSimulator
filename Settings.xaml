@@ -10,7 +10,7 @@
 
         <!-- Resolution ComboBox -->
         <Border Background="#707070" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" Width="350" Height="75">
-            <ComboBox x:Name="resolutionOption" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" FontFamily="Trebuchet MS" FontSize="20" Foreground="#FFFFFF" Background="#707070">
+            <ComboBox x:Name="resolutionOption" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" FontFamily="Trebuchet MS" FontSize="20" Foreground="#404040" Background="#707070">
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="ComboBoxItem">
                         <Setter Property="Background" Value="#505050"/>

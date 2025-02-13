@@ -2,53 +2,85 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Simulation" Height="1080" Width="1920" Background="#404040">
-    <Grid>
-        <!-- Core-->
-        <Border Background="#707070" CornerRadius="15" Width="450" Height="300" HorizontalAlignment="Left" Margin="50,50,0,0">
-            <StackPanel>
-                <TextBlock Text="Core" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                <TextBlock Name="CoreTemperature" Text="{Binding CoreTemperature}" FontSize="30" Foreground="#FFFFFF"/>
-                <TextBlock Name="CorePressure" Text="{Binding CorePressure}" FontSize="30" Foreground="#FFFFFF"/>
-                <TextBlock Name="CoreReactivity" Text="{Binding CoreReactivity}" FontSize="30" Foreground="#FFFFFF"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Pressuriser -->
-        <Border Background="#707070" CornerRadius="15" Width="450" Height="300" HorizontalAlignment="Right" Margin="0,50,50,0">
-            <StackPanel>
-                <TextBlock Text="Pressuriser" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                <TextBlock Name="PressuriserPressure" Text="{Binding PressuriserPressure}" FontSize="30" Foreground="#FFFFFF"/>
-                <TextBlock Name="PressuriserTemperature" Text="{Binding PressuriserTemperature}" FontSize="30" Foreground="#FFFFFF"/>
-                <TextBlock Name="PressuriserWaterLevel" Text="{Binding PressuriserWaterLevel}" FontSize="30" Foreground="#FFFFFF"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Cooling Loops -->
-        <Border Background="#707070" CornerRadius="15" Width="900" Height="250" HorizontalAlignment="Center" Margin="0,400,0,0">
-            <StackPanel>
-                <TextBlock Text="Cooling Loops" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock Name="PrimaryCoolantTemp" Text="{Binding PrimaryCoolantTemp}" FontSize="30" Foreground="#FFFFFF" Margin="20,0,20,0"/>
-                    <TextBlock Name="SecondaryCoolantTemp" Text="{Binding SecondaryCoolantTemp}" FontSize="30" Foreground="#FFFFFF" Margin="20,0,20,0"/>
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <!-- Core -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Left" Margin="10,10,0,704">
+                <StackPanel>
+                    <TextBlock Text="Core" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="CoreTemperature" Text="{Binding CoreTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="CorePressure" Text="{Binding CorePressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Reactivity:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="CoreReactivity" Text="{Binding CoreReactivity}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Control Rod Insertion:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="ControlRodInsertion" Text="{Binding ControlRodInsertion}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Coolant Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="CoreCoolantFlow" Text="{Binding CoreCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
                 </StackPanel>
-            </StackPanel>
-        </Border>
+            </Border>
 
-        <!-- Power Generation -->
-        <Border Background="#707070" CornerRadius="15" Width="450" Height="200" HorizontalAlignment="Left" Margin="50,750,0,0">
-            <StackPanel>
-                <TextBlock Text="Power Generation" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                <TextBlock Name="PowerOutput" Text="{Binding PowerOutput}" FontSize="30" Foreground="#FFFFFF"/>
-                <TextBlock Name="ThermalPower" Text="{Binding ThermalPower}" FontSize="30" Foreground="#FFFFFF"/>
-            </StackPanel>
-        </Border>
+            <!-- Pressuriser -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Right" Margin="0,10,989,704">
+                <StackPanel>
+                    <TextBlock Text="Pressuriser" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PressuriserTemperature" Text="{Binding PressuriserTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PressuriserPressure" Text="{Binding PressuriserPressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Water Level:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PressuriserWaterLevel" Text="{Binding PressuriserWaterLevel}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Heating Power:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PressuriserHeatingPower" Text="{Binding PressuriserHeatingPower}" FontSize="30" Foreground="#FFFFFF"/>
+                </StackPanel>
+            </Border>
 
-        <!-- Indicators -->
-        <Border Background="#707070" CornerRadius="15" Width="450" Height="200" HorizontalAlignment="Right" Margin="0,750,50,0">
-            <StackPanel>
-                <TextBlock Text="Indicators" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                <TextBlock Name="dangerIndicator" Text="{Binding DangerIndicator}" FontSize="30" Foreground="#5CED73"/>
-            </StackPanel>
-        </Border>
-    </Grid>
+            <!-- Primary Cooling Loop -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Left" Margin="10,387,0,327">
+                <StackPanel>
+                    <TextBlock Text="Primary Cooling Loop" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Coolant Temperature:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantTemp" Text="{Binding PrimaryCoolantTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantPressure" Text="{Binding PrimaryCoolantPressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantFlow" Text="{Binding PrimaryCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Secondary Cooling Loop -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Right" Margin="0,387,989,327">
+                <StackPanel>
+                    <TextBlock Text="Secondary Cooling Loop" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Coolant Temperature:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantTemp" Text="{Binding SecondaryCoolantTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantPressure" Text="{Binding SecondaryCoolantPressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantFlow" Text="{Binding SecondaryCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Power Generation -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="250" HorizontalAlignment="Left" Margin="10,777,0,37">
+                <StackPanel>
+                    <TextBlock Text="Power Generation" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Power Output:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PowerOutput" Text="{Binding PowerOutput}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Thermal Power:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="ThermalPower" Text="{Binding ThermalPower}" FontSize="30" Foreground="#FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Indicators -->
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="250" HorizontalAlignment="Right" Margin="0,777,989,37">
+                <StackPanel>
+                    <TextBlock Text="Indicators" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Danger Level:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="dangerIndicator" Text="{Binding DangerIndicator}" FontSize="30" Foreground="#5CED73"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Viewbox>
 </Window>

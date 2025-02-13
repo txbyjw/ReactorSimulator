@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Microsoft.Win32;
 using ReactorSimulator;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace ReactorSimulator
 {
@@ -16,585 +17,141 @@ namespace ReactorSimulator
         public double timeElapsed = 0;
         public event Action dangerStateChanged;
 
-        public UI ui;
         public Core core;
         public ControlRods controlRods;
         public Pressuriser pressuriser;
-        public PrimaryCoolingLoop primaryCoolingLoop;
-        public SecondaryCoolingLoop secondaryCoolingLoop;
+        public PrimaryCoolingLoop primaryLoop;
+        public SecondaryCoolingLoop secondaryLoop;
         public PowerGeneration powerGeneration;
         public Simulation simulationWindow;
+        private ScenarioData scenarioData;
 
-        public Reactor(Simulation window)
+        public Reactor(Simulation window, ScenarioData scenarioData)
         {
             simulationWindow = window;
 
-            ui = new UI(this);
-            core = new Core(this);
-            controlRods = new ControlRods();
-            pressuriser = new Pressuriser();
-            primaryCoolingLoop = new PrimaryCoolingLoop();
-            secondaryCoolingLoop = new SecondaryCoolingLoop();
-            powerGeneration = new PowerGeneration(this);
+            core = new Core(this, scenarioData, scenarioData.coreTemperature, scenarioData.corePressure, scenarioData.coreReactivity, scenarioData.coreCoolantFlow, scenarioData.coreIntegrity, scenarioData.coreFuelIntegrity);
+            controlRods = new ControlRods(scenarioData.controlRodInsertionLevel);
+            pressuriser = new Pressuriser(scenarioData.pressuriserTemperature, scenarioData.pressuriserPressure, scenarioData.pressuriserFillLevel, scenarioData.pressuriserHeatingPower, scenarioData.pressuriserHeaterOn, scenarioData.pressuriserReliefValveOpen, scenarioData.pressuriserSprayNozzlesActive);
+            primaryLoop = new PrimaryCoolingLoop(scenarioData.primaryLoopTemperature, scenarioData.primaryLoopPressure, scenarioData.primaryLoopCoolantFlow);
+            secondaryLoop = new SecondaryCoolingLoop(scenarioData.secondaryLoopTemperature, scenarioData.secondaryLoopPressure, scenarioData.secondaryLoopCoolantFlow);
+            powerGeneration = new PowerGeneration(this, scenarioData.powerGenerationPowerOutput, scenarioData.powerGenerationThermalPower);
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500); // Temporarily, this will be user-set later.
-            timer.Tick += (sender, e) => updateSimulation();
-            // dangerStateChanged += ui.updateUI;
+            timer.Interval = TimeSpan.FromMilliseconds(1000); // Temporarily, this will be user-set later.
+            // timer.Tick += (sender, e) => updateSimulation();
             timer.Start();
         }
 
-        private void updateSimulation() // Called every 100ms to update each class and their attributes.
+        private void updateSimulation() // Called every second to update each class and their attributes.
         {
+            if (core == null || controlRods == null || pressuriser == null || primaryLoop == null || secondaryLoop == null || powerGeneration == null)
+            {
+                return;
+            }
+
             core.updateCore(timeElapsed);
-            controlRods.updateControlRods(50);
+            controlRods.updateControlRods(50); // temporary until i sort user control out whenever
             pressuriser.updatePressuriser(timeElapsed);
-            primaryCoolingLoop.updatePrimaryCoolingLoop(core.getTemperature(), timeElapsed);
-            secondaryCoolingLoop.updateSecondaryCoolingLoop(primaryCoolingLoop.getCoolantTemperature(), timeElapsed);
+            primaryLoop.updatePrimaryCoolingLoop(core.coreTemperature, timeElapsed);
+            secondaryLoop.updateSecondaryCoolingLoop(primaryLoop.primaryLoopCoolantTemperature, timeElapsed);
             powerGeneration.updatePowerGeneration(timeElapsed);
             checkIndicators();
 
-            timeElapsed += 0.1;
+            timeElapsed += 1;
         }
 
         private void checkIndicators()
         {
-            bool previousState = ui.isDanger;
-            ui.updateDangerIndicator(core.getTemperature() > 350 || core.getPressure() > 165 || core.getCoolantFlow() < 250 || core.getReactivity() > 95 || core.getIntegrity() < 30);
-
-            if (ui.isDanger != previousState)
-            {
-                dangerStateChanged?.Invoke();
-            }
-        }
-    }
-
-    public class Variables : INotifyPropertyChanged
-    {
-        private Core core;
-        private ControlRods controlRods;
-        private Pressuriser pressuriser;
-        private PrimaryCoolingLoop primaryCoolingLoop;
-        private SecondaryCoolingLoop secondaryCoolingLoop;
-        private PowerGeneration powerGeneration;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Private backing fields for the properties
-        private double coreTemperature;
-        private double corePressure;
-        private double coreCoolantFlow;
-        private double coreReactivity;
-        private double coreIntegrity;
-        private double coreFuelIntegrity;
-
-        private double controlRodsInsertionLevel;
-
-        private double pressuriserTemperature;
-        private double pressuriserPressure;
-        private double pressuriserFillLevel;
-        private double pressuriserHeatingPower;
-        private bool pressuriserHeaterOn;
-        private bool pressuriserReliefValveOpen;
-        private bool pressuriserSprayNozzlesActive;
-
-        private double pclTemperature;
-        private double pclPressure;
-        private double pclCoolantFlow;
-        private bool pclLowFlow;
-        private bool pclLowPressure;
-        private bool pclHighTemperature;
-
-        private double sclTemperature;
-        private double sclPressure;
-        private double sclCoolantFlow;
-        private bool sclLowFlow;
-        private bool sclLowPressure;
-        private bool sclHighTemperature;
-
-        private double pgPowerOutput;
-        private double pgThermalPower;
-
-        public Variables(ScenarioData scenarioData)
-        {
-            coreTemperature = scenarioData.coreTemperature;
-            corePressure = scenarioData.corePressure;
-            coreCoolantFlow = scenarioData.coreCoolantFlow;
-            coreReactivity = scenarioData.coreReactivity;
-            coreIntegrity = scenarioData.coreIntegrity;
-            coreFuelIntegrity = scenarioData.coreFuelIntegrity;
-
-            controlRodsInsertionLevel = scenarioData.controlRodsInsertionLevel;
-
-            pressuriserTemperature = scenarioData.pressuriserTemperature;
-            pressuriserPressure = scenarioData.pressuriserPressure;
-            pressuriserFillLevel = scenarioData.pressuriserFillLevel;
-            pressuriserHeatingPower = scenarioData.pressuriserHeatingPower;
-            pressuriserHeaterOn = scenarioData.pressuriserHeaterOn;
-            pressuriserReliefValveOpen = scenarioData.pressuriserReliefValveOpen;
-            pressuriserSprayNozzlesActive = scenarioData.pressuriserSprayNozzlesActive;
-
-            pclTemperature = scenarioData.pclTemperature;
-            pclPressure = scenarioData.pclPressure;
-            pclCoolantFlow = scenarioData.pclCoolantFlow;
-            pclLowFlow = scenarioData.pclLowFlow;
-            pclLowPressure = scenarioData.pclLowPressure;
-            pclHighTemperature = scenarioData.pclHighTemperature;
-
-            sclTemperature = scenarioData.sclTemperature;
-            sclPressure = scenarioData.sclPressure;
-            sclCoolantFlow = scenarioData.sclCoolantFlow;
-            sclLowFlow = scenarioData.sclLowFlow;
-            sclLowPressure = scenarioData.sclLowPressure;
-            sclHighTemperature = scenarioData.sclHighTemperature;
-
-            pgPowerOutput = scenarioData.pgPowerOutput;
-            pgThermalPower = scenarioData.pgThermalPower;
-        }
-
-        // This is how you trigger the UI update when a property changes
-        protected virtual void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        // Properties with setters to update the UI automatically
-        public double CoreTemperature
-        {
-            get => coreTemperature;
-            set
-            {
-                if (coreTemperature != value)
-                {
-                    coreTemperature = value;
-                    NotifyPropertyChanged(nameof(CoreTemperature));
-                }
-            }
-        }
-
-        public double CorePressure
-        {
-            get => corePressure;
-            set
-            {
-                if (corePressure != value)
-                {
-                    corePressure = value;
-                    NotifyPropertyChanged(nameof(CorePressure));
-                }
-            }
-        }
-
-        public double CoreCoolantFlow
-        {
-            get => coreCoolantFlow;
-            set
-            {
-                if (coreCoolantFlow != value)
-                {
-                    coreCoolantFlow = value;
-                    NotifyPropertyChanged(nameof(CoreCoolantFlow));
-                }
-            }
-        }
-
-        public double CoreReactivity
-        {
-            get => coreReactivity;
-            set
-            {
-                if (coreReactivity != value)
-                {
-                    coreReactivity = value;
-                    NotifyPropertyChanged(nameof(CoreReactivity));
-                }
-            }
-        }
-
-        public double CoreIntegrity
-        {
-            get => coreIntegrity;
-            set
-            {
-                if (coreIntegrity != value)
-                {
-                    coreIntegrity = value;
-                    NotifyPropertyChanged(nameof(CoreIntegrity));
-                }
-            }
-        }
-
-        public double CoreFuelIntegrity
-        {
-            get => coreFuelIntegrity;
-            set
-            {
-                if (coreFuelIntegrity != value)
-                {
-                    coreFuelIntegrity = value;
-                    NotifyPropertyChanged(nameof(CoreFuelIntegrity));
-                }
-            }
-        }
-
-        public double ControlRodsInsertionLevel
-        {
-            get => controlRodsInsertionLevel;
-            set
-            {
-                if (controlRodsInsertionLevel != value)
-                {
-                    controlRodsInsertionLevel = value;
-                    NotifyPropertyChanged(nameof(ControlRodsInsertionLevel));
-                }
-            }
-        }
-
-        public double PressuriserTemperature
-        {
-            get => pressuriserTemperature;
-            set
-            {
-                if (pressuriserTemperature != value)
-                {
-                    pressuriserTemperature = value;
-                    NotifyPropertyChanged(nameof(PressuriserTemperature));
-                }
-            }
-        }
-
-        public double PressuriserPressure
-        {
-            get => pressuriserPressure;
-            set
-            {
-                if (pressuriserPressure != value)
-                {
-                    pressuriserPressure = value;
-                    NotifyPropertyChanged(nameof(PressuriserPressure));
-                }
-            }
-        }
-
-        public double PressuriserFillLevel
-        {
-            get => pressuriserFillLevel;
-            set
-            {
-                if (pressuriserFillLevel != value)
-                {
-                    pressuriserFillLevel = value;
-                    NotifyPropertyChanged(nameof(PressuriserFillLevel));
-                }
-            }
-        }
-
-        public double PressuriserHeatingPower
-        {
-            get => pressuriserHeatingPower;
-            set
-            {
-                if (pressuriserHeatingPower != value)
-                {
-                    pressuriserHeatingPower = value;
-                    NotifyPropertyChanged(nameof(PressuriserHeatingPower));
-                }
-            }
-        }
-
-        public bool PressuriserHeaterOn
-        {
-            get => pressuriserHeaterOn;
-            set
-            {
-                if (pressuriserHeaterOn != value)
-                {
-                    pressuriserHeaterOn = value;
-                    NotifyPropertyChanged(nameof(PressuriserHeaterOn));
-                }
-            }
-        }
-
-        public bool PressuriserReliefValveOpen
-        {
-            get => pressuriserReliefValveOpen;
-            set
-            {
-                if (pressuriserReliefValveOpen != value)
-                {
-                    pressuriserReliefValveOpen = value;
-                    NotifyPropertyChanged(nameof(PressuriserReliefValveOpen));
-                }
-            }
-        }
-
-        public bool PressuriserSprayNozzlesActive
-        {
-            get => pressuriserSprayNozzlesActive;
-            set
-            {
-                if (pressuriserSprayNozzlesActive != value)
-                {
-                    pressuriserSprayNozzlesActive = value;
-                    NotifyPropertyChanged(nameof(PressuriserSprayNozzlesActive));
-                }
-            }
-        }
-
-        public double PclTemperature
-        {
-            get => pclTemperature;
-            set
-            {
-                if (pclTemperature != value)
-                {
-                    pclTemperature = value;
-                    NotifyPropertyChanged(nameof(PclTemperature));
-                }
-            }
-        }
-
-        public double PclPressure
-        {
-            get => pclPressure;
-            set
-            {
-                if (pclPressure != value)
-                {
-                    pclPressure = value;
-                    NotifyPropertyChanged(nameof(PclPressure));
-                }
-            }
-        }
-
-        public double PclCoolantFlow
-        {
-            get => pclCoolantFlow;
-            set
-            {
-                if (pclCoolantFlow != value)
-                {
-                    pclCoolantFlow = value;
-                    NotifyPropertyChanged(nameof(PclCoolantFlow));
-                }
-            }
-        }
-
-        public bool PclLowFlow
-        {
-            get => pclLowFlow;
-            set
-            {
-                if (pclLowFlow != value)
-                {
-                    pclLowFlow = value;
-                    NotifyPropertyChanged(nameof(PclLowFlow));
-                }
-            }
-        }
-
-        public bool PclLowPressure
-        {
-            get => pclLowPressure;
-            set
-            {
-                if (pclLowPressure != value)
-                {
-                    pclLowPressure = value;
-                    NotifyPropertyChanged(nameof(PclLowPressure));
-                }
-            }
-        }
-
-        public bool PclHighTemperature
-        {
-            get => pclHighTemperature;
-            set
-            {
-                if (pclHighTemperature != value)
-                {
-                    pclHighTemperature = value;
-                    NotifyPropertyChanged(nameof(PclHighTemperature));
-                }
-            }
-        }
-
-        public double SclTemperature
-        {
-            get => sclTemperature;
-            set
-            {
-                if (sclTemperature != value)
-                {
-                    sclTemperature = value;
-                    NotifyPropertyChanged(nameof(SclTemperature));
-                }
-            }
-        }
-
-        public double SclPressure
-        {
-            get => sclPressure;
-            set
-            {
-                if (sclPressure != value)
-                {
-                    sclPressure = value;
-                    NotifyPropertyChanged(nameof(SclPressure));
-                }
-            }
-        }
-
-        public double SclCoolantFlow
-        {
-            get => sclCoolantFlow;
-            set
-            {
-                if (sclCoolantFlow != value)
-                {
-                    sclCoolantFlow = value;
-                    NotifyPropertyChanged(nameof(SclCoolantFlow));
-                }
-            }
-        }
-
-        public bool SclLowFlow
-        {
-            get => sclLowFlow;
-            set
-            {
-                if (sclLowFlow != value)
-                {
-                    sclLowFlow = value;
-                    NotifyPropertyChanged(nameof(SclLowFlow));
-                }
-            }
-        }
-
-        public bool SclLowPressure
-        {
-            get => sclLowPressure;
-            set
-            {
-                if (sclLowPressure != value)
-                {
-                    sclLowPressure = value;
-                    NotifyPropertyChanged(nameof(SclLowPressure));
-                }
-            }
-        }
-
-        public bool SclHighTemperature
-        {
-            get => sclHighTemperature;
-            set
-            {
-                if (sclHighTemperature != value)
-                {
-                    sclHighTemperature = value;
-                    NotifyPropertyChanged(nameof(SclHighTemperature));
-                }
-            }
-        }
-
-        public double PgPowerOutput
-        {
-            get => pgPowerOutput;
-            set
-            {
-                if (pgPowerOutput != value)
-                {
-                    pgPowerOutput = value;
-                    NotifyPropertyChanged(nameof(PgPowerOutput));
-                }
-            }
-        }
-
-        public double PgThermalPower
-        {
-            get => pgThermalPower;
-            set
-            {
-                if (pgThermalPower != value)
-                {
-                    pgThermalPower = value;
-                    NotifyPropertyChanged(nameof(PgThermalPower));
-                }
-            }
-        }
-    }
-
-
-    public class UI
-    {
-        // Indicators
-        private bool criticalMass = true;
-        private bool reactive = true;
-        private bool danger = false;
-        private bool overheating = false;
-        private bool criticalOverheating = false;
-        private bool operational = true;
-
-        public bool isCriticalMass => criticalMass;
-        public bool isReactive => reactive;
-        public bool isDanger => danger;
-        public bool isOverheating => overheating;
-        public bool isCriticalOverheating => criticalOverheating;
-        public bool isOperational => operational;
-
-        // Switches
-        private bool shutdown = false;
-
-        public bool isShutdown => shutdown;
-
-        private Reactor reactor;
-
-        public UI(Reactor reactor)
-        {
-            {
-                this.reactor = reactor;
-                // this.reactor.dangerStateChanged += updateUI;
-            }
-        }
-
-        public void updateDangerIndicator(bool state)
-        {
-            if (!state is bool boolState) // Might be unnecessary but just in case, the set value is validated to be a boolean before being overwritten.
-            {
-                MessageBox.Show($"Danger indicator could not be updated. Parsed state was {state}, which is not a boolean value.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                danger = state;
-            }
+            bool previousState = core.coreTemperature > 350 || core.corePressure > 165 || core.coreCoolantFlow < 250 || core.coreReactivity > 95 || core.coreIntegrity < 30; // need to make this more efficient so i can add more without it being 5 miles long lol
+            dangerStateChanged?.Invoke();
         }
     }
 
     // Main class, contains most of the calculations.
-    public class Core
+    public class Core : INotifyPropertyChanged
     {
         // Properties (Encapsulated)
-        private double temperature = 330.0; // deg c
-        private double pressure = 155.0; // bar
-        private double coolantFlow = 400.0; // l min
-        private double reactivity = 50.0; // %
-        private double integrity = 100.0; // %
-        private double fuelIntegrity = 100.0; // %
+        private double temperature;
+        private double pressure;
+        private double coolantFlow;
+        private double reactivity;
+        private double integrity;
+        private double fuelIntegrity;
 
         // Getters
-        public double getTemperature() => temperature;
-        public double getPressure() => pressure;
-        public double getCoolantFlow() => coolantFlow;
-        public double getReactivity() => reactivity;
-        public double getIntegrity() => integrity;
-        public double getFuelIntegrity() => fuelIntegrity;
-
-        // Properties (Control Rods) - Unsure as to whether or not these will be used yet.
-        private double rodTemperature = 330.0; // deg c
-        private double rodIntegrity = 100.0; // %, possibly irrelevant as likely will just use same integrity as the core.
-
-        public double getRodTemperature() => rodTemperature;
-        public double getRodIntegrity() => rodIntegrity;
+        public double coreTemperature
+        {
+            get => temperature;
+            set
+            {
+                if (temperature != value)
+                {
+                    temperature = value;
+                    updateUI(nameof(coreTemperature));
+                }
+            }
+        }
+        public double corePressure
+        {
+            get => pressure;
+            set
+            {
+                if (pressure != value)
+                {
+                    pressure = value;
+                    updateUI(nameof(corePressure));
+                }
+            }
+        }
+        public double coreCoolantFlow
+        {
+            get => coolantFlow;
+            set
+            {
+                if (coolantFlow != value)
+                {
+                    coolantFlow = value;
+                    updateUI(nameof(coreCoolantFlow));
+                }
+            }
+        }
+        public double coreReactivity
+        {
+            get => reactivity;
+            set
+            {
+                if (reactivity != value)
+                {
+                    reactivity = value;
+                    updateUI(nameof(coreReactivity));
+                }
+            }
+        }
+        public double coreIntegrity
+        {
+            get => integrity;
+            set
+            {
+                if (integrity != value)
+                {
+                    integrity = value;
+                    updateUI(nameof(coreIntegrity));
+                }
+            }
+        }
+        public double coreFuelIntegrity
+        {
+            get => fuelIntegrity;
+            set
+            {
+                if (fuelIntegrity != value)
+                {
+                    fuelIntegrity = value;
+                    updateUI(nameof(coreFuelIntegrity));
+                }
+            }
+        }
 
         // Indicators and Switches
         private bool operatingPowerIndicator = true;
@@ -612,46 +169,58 @@ namespace ReactorSimulator
         public bool isEmergencyShutdownSwitch() => emergencyShutdownSwitch;
 
         // Constants
-        private const double pressureTemperatureCoefficient = 0.5; // This is the (approximate) pressure increase per deg c above 300 degrees.
-
-        public double getPTCoefficient() => pressureTemperatureCoefficient;
+        private const double pressureTemperatureCoefficient = 0.5; // This is the (approximate) pressure increase per deg c above 300 degrees. Or at least google says so.
 
         private Reactor reactor;
         private ControlRods controlRods;
         private Pressuriser pressuriser;
-        private PrimaryCoolingLoop primaryCoolingLoop;
-        private SecondaryCoolingLoop secondaryCoolingLoop;
+        private PrimaryCoolingLoop primaryLoop;
+        private SecondaryCoolingLoop secondaryLoop;
         private PowerGeneration powerGeneration;
+        private ScenarioData scenarioData;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Constructor class
-        public Core(Reactor reactor)
+        public Core(Reactor reactor, ScenarioData scenarioData, double temperature, double pressure, double reactivity, double flowRate, double integrity, double fuelIntegrity)
         {
             this.reactor = reactor;
+            this.temperature = temperature;
+            this.pressure = pressure;
+            this.reactivity = reactivity;
+            this.coolantFlow = flowRate;
+            this.integrity = integrity;
+            this.fuelIntegrity = fuelIntegrity;
 
-            controlRods = new ControlRods();
-            pressuriser = new Pressuriser();
-            primaryCoolingLoop = new PrimaryCoolingLoop();
-            secondaryCoolingLoop = new SecondaryCoolingLoop();
-            powerGeneration = new PowerGeneration(reactor);
+            controlRods = new ControlRods(scenarioData.controlRodInsertionLevel);
+            pressuriser = new Pressuriser(temperature, pressure, scenarioData.pressuriserFillLevel, scenarioData.pressuriserHeatingPower, scenarioData.pressuriserHeaterOn, scenarioData.pressuriserReliefValveOpen, scenarioData.pressuriserSprayNozzlesActive);
+            primaryLoop = new PrimaryCoolingLoop(scenarioData.primaryLoopTemperature, scenarioData.primaryLoopPressure, scenarioData.primaryLoopCoolantFlow);
+            secondaryLoop = new SecondaryCoolingLoop(scenarioData.secondaryLoopTemperature, scenarioData.secondaryLoopPressure, scenarioData.secondaryLoopCoolantFlow);
+            powerGeneration = new PowerGeneration(reactor, scenarioData.powerGenerationPowerOutput, scenarioData.powerGenerationThermalPower);
         }
 
         public Pressuriser GetPressuriser() => pressuriser;
 
         public void updateCore(double timeElapsed)
         {
-            calculateReactivity(controlRods.getNeutronAbsorbtionRate(), primaryCoolingLoop.getHeatTransferEfficiency(), getFuelIntegrity(), getTemperature(), timeElapsed);
-            calculateTemperature(getReactivity(), primaryCoolingLoop.getCoolantFlow(), primaryCoolingLoop.getCoolantTemperature(), powerGeneration.getThermalEfficiency(), powerGeneration.getPowerOutput());
-            calculatePressure(getTemperature(), primaryCoolingLoop.getCoolantFlow(), powerGeneration.getPowerOutput(), getPTCoefficient(), timeElapsed);
-            calculateIntegrity(getTemperature(), getPressure(), timeElapsed);
+            if (reactor == null) // Just a check to stop the calculations if the reactor isn't yet initialised.
+            {
+                return;
+            }
+
+            calculateReactivity(controlRods.ControlRodsNeutronAbsorbtionRate, primaryLoop.primaryLoopHeatTransferEfficiency, coreFuelIntegrity, coreTemperature, timeElapsed);
+            calculateTemperature(coreReactivity, primaryLoop.primaryLoopCoolantFlow, primaryLoop.primaryLoopCoolantTemperature, powerGeneration.powerGenerationThermalEfficiency, powerGeneration.powerGenerationPowerOutput);
+            calculatePressure(coreTemperature, primaryLoop.primaryLoopCoolantFlow, powerGeneration.powerGenerationPowerOutput, pressureTemperatureCoefficient, timeElapsed);
+            calculateIntegrity(coreTemperature, corePressure, timeElapsed);
         }
 
-        public void calculateReactivity(double neutronAbsorbtionRate, double coolantModerationFactor, double fuelIntegrity, double temperature, double timeElapsed)
+        public void calculateReactivity(double neutronAbsorbtionRate, double coolantModerationFactor, double fuelIntegrity, double temperature, double timeElapsed) // I cannot get this to calculate right and it is SO PAINFUL.
         {
-            double controlRodEffect = 1 - (neutronAbsorbtionRate / 100);
-            double coolantEffect = coolantModerationFactor * (1 - 0.01 * (temperature - 300)); // More simple calculation for the effect of coolant, should still provide realistic results.
-            double fuelEffect = fuelIntegrity * (1 - 0.005 * (timeElapsed)); // Always decreasing over time.
+            double controlRodEffect = Math.Max(0, 1 - (neutronAbsorbtionRate / 100)); // Stops the value being bigger than 1.
+            double coolantEffect = Math.Max(0, coolantModerationFactor * (1 - 0.01 * (temperature - 300))); // Keeps positive to prevent stupid negative values I was always getting.
+            double fuelEffect = Math.Max(0, fuelIntegrity * (1 - 0.005 * timeElapsed)); // Prevents negative fuel integrity because that would be stupid.
 
-            double tempReactivity = reactivity - controlRodEffect * coolantEffect * fuelEffect;
+            double tempReactivity = reactivity * controlRodEffect * coolantEffect * fuelEffect; // 166250%? seems right bro idek if thats better than -3000%
 
             if (tempReactivity < 0 || tempReactivity > 100)
             {
@@ -663,7 +232,7 @@ namespace ReactorSimulator
             reactiveIndicator = reactivity > 0;
             criticalMassIndicator = reactivity >= 70;
 
-            if (!dangerIndicator) // Checks to see if danger indicator is already lit, don't want it to override with a false value if there is danger.
+            if (!dangerIndicator) // Checks to see if danger indicator is already lit, don't want it to override with a false value if there is danger. WORK ON WHEN CAN.
             {
                 dangerIndicator = reactivity >= 98;
             }
@@ -695,7 +264,7 @@ namespace ReactorSimulator
         public void calculatePressure(double temperature, double coolantFlow, double powerOutput, double pressureTemperatureCoefficient, double timeElapsed)
         {
             pressuriser.updatePressuriser(timeElapsed);
-            double tempPressure = pressuriser.getPressure();
+            double tempPressure = pressuriser.pressuriserPressure;
 
             tempPressure += (temperature - 300) * pressureTemperatureCoefficient;
 
@@ -720,7 +289,7 @@ namespace ReactorSimulator
 
         public void calculateIntegrity(double temperature, double pressure, double timeElapsed)
         {
-            double tempIntegrity = getIntegrity();
+            double tempIntegrity = coreIntegrity;
 
             if (temperature >= 350 || pressure >= 165) // 10 degrees / bar over where warnings start
             {
@@ -763,18 +332,52 @@ namespace ReactorSimulator
 
         public void calculateFuelEfficiency(double timeElapsed)
         {
-            double tempFuelEfficiency = getFuelIntegrity();
+            double tempFuelEfficiency = coreFuelIntegrity;
+        }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }
 
-    public class ControlRods
+    public class ControlRods : INotifyPropertyChanged
     {
         private double insertionLevel = 50;
         private double neutronAbsorbtionRate = 50;
 
-        public double getInsertionLevel() => insertionLevel;
-        public double getNeutronAbsorbtionRate() => neutronAbsorbtionRate;
+        public double ControlRodsInsertionLevel
+        {
+            get => insertionLevel;
+            set
+            {
+                if (insertionLevel != value)
+                { 
+                    insertionLevel = value;
+                    updateUI(nameof(ControlRodsInsertionLevel));
+                }
+            }
+        }
+        public double ControlRodsNeutronAbsorbtionRate
+        {
+            get => neutronAbsorbtionRate;
+            set
+            {
+                if (neutronAbsorbtionRate != value)
+                {
+                    neutronAbsorbtionRate = value;
+                    updateUI(nameof(ControlRodsNeutronAbsorbtionRate));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ControlRods(double insertionLevel)
+        {
+            this.insertionLevel = insertionLevel;
+        }
 
         public void updateControlRods(double adjustment)
         {
@@ -786,32 +389,132 @@ namespace ReactorSimulator
             insertionLevel = Math.Clamp(insertionLevel + adjustment, 0, 100);
             neutronAbsorbtionRate = Math.Pow(insertionLevel / 100, 2) * 100;
         }
+
+        public void calculateNeutronAbsorbtionRate()
+        {
+            // Need to do.
+        }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class Pressuriser
+    public class Pressuriser : INotifyPropertyChanged
     {
         // Properties
-        private double temperature = 330.0;
-        private double pressure = 355.0;
-        private double waterLevel = 50.0;
-        private double heatingPower = 0.0;
-        private bool heaterOn = true;
-        private bool reliefValveOpen = false;
-        private bool sprayNozzlesActive = true;
+        private double temperature;
+        private double pressure;
+        private double waterLevel;
+        private double heatingPower;
+        private bool heaterOn;
+        private bool reliefValveOpen;
+        private bool sprayNozzlesActive;
 
-        public double getTemperature() => temperature;
-        public double getPressure() => pressure;
-        public double getWaterLevel() => waterLevel;
-        public double getHeatingPower() => heatingPower;
-        public bool isHeaterOn() => heaterOn;
-        public bool isReliefValveOpen() => reliefValveOpen;
-        public bool isSprayNozzlesActive() => sprayNozzlesActive;
+        public double pressuriserTemperature
+        {
+            get => temperature;
+            set
+            {
+                if (temperature != value)
+                {
+                    temperature = value;
+                    updateUI(nameof(pressuriserTemperature));
+                }
+            }
+        }
+        public double pressuriserPressure
+        {
+            get => pressure;
+            set
+            {
+                if (pressure != value)
+                {
+                    pressure = value;
+                    updateUI(nameof(pressuriserPressure));
+                }
+            }
+        }
+        public double pressuriserWaterLevel
+        {
+            get => waterLevel;
+            set
+            {
+                if (waterLevel != value)
+                {
+                    waterLevel = value;
+                    updateUI(nameof(pressuriserWaterLevel));
+                }
+            }
+        }
+        public double pressuriserHeatingPower
+        {
+            get => heatingPower;
+            set
+            {
+                if (heatingPower != value)
+                {
+                    heatingPower = value;
+                    updateUI(nameof(pressuriserHeatingPower));
+                }
+            }
+        }
+        public bool pressuriserHeaterOn
+        {
+            get => heaterOn;
+            set
+            {
+                if (heaterOn != value)
+                {
+                    heaterOn = value;
+                    updateUI(nameof(pressuriserHeaterOn));
+                }
+            }
+        }
+        public bool pressuriserReliefValveOpen
+        {
+            get => reliefValveOpen;
+            set
+            {
+                if (reliefValveOpen != value)
+                {
+                    reliefValveOpen = value;
+                    updateUI(nameof(pressuriserReliefValveOpen));
+                }
+            }
+        }
+        public bool pressuriserSprayNozzlesActive
+        {
+            get => sprayNozzlesActive;
+            set
+            {
+                if (sprayNozzlesActive != value)
+                {
+                    sprayNozzlesActive = value;
+                    updateUI(nameof(pressuriserSprayNozzlesActive));
+                }
+            }
+        }
 
         // Constants
         private const double minPressure = 145.0;
         private const double maxPressure = 165.0;
         private const double minWaterLevel = 20.0;
         private const double maxWaterLevel = 100.0;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Pressuriser(double temperature, double pressure, double fillLevel, double heatingPower, bool heaterOn, bool reliefValveOpen, bool sprayNozzlesActive)
+        {
+            this.temperature = temperature;
+            this.pressure = pressure;
+            this.waterLevel = fillLevel;
+            this.heatingPower = heatingPower;
+            this.heaterOn = heaterOn;
+            this.reliefValveOpen = reliefValveOpen;
+            this.sprayNozzlesActive = sprayNozzlesActive;
+        }
 
         public void updatePressuriser(double timeElapsed)
         {
@@ -864,26 +567,117 @@ namespace ReactorSimulator
                 MessageBox.Show($"Water level out of range. Calculated water level was {waterLevel} bar, clamped value to be within range (0% - 100%)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class PrimaryCoolingLoop
+    public class PrimaryCoolingLoop : INotifyPropertyChanged
     {
         // Properties
-        private double coolantTemperature = 300.0;
-        private double coolantPressure = 155.0;
-        private double coolantFlow = 400.0;
-        private double heatTransferEfficiency = 95.0;
-        private bool lowFlowIndicator = false;
-        private bool highTemperatureIndicator = false;
-        private bool lowPressureIndicator = false;
+        private double coolantTemperature;
+        private double coolantPressure;
+        private double coolantFlow;
+        private double heatTransferEfficiency;
+        private bool lowFlowIndicator;
+        private bool highTemperatureIndicator;
+        private bool lowPressureIndicator;
 
-        public double getCoolantTemperature() => coolantTemperature;
-        public double getCoolantPressure() => coolantPressure;
-        public double getCoolantFlow() => coolantFlow;
-        public double getHeatTransferEfficiency() => heatTransferEfficiency;
-        public bool isLowFlowIndicator() => lowFlowIndicator;
-        public bool isHighTemperatureIndicator() => highTemperatureIndicator;
-        public bool isLowPressureIndicator() => lowPressureIndicator;
+        public double primaryLoopCoolantTemperature
+        {
+            get => coolantTemperature;
+            set
+            {
+                if (coolantTemperature != value)
+                {
+                    coolantTemperature = value;
+                    updateUI(nameof(primaryLoopCoolantTemperature));
+                }
+            }
+        }
+        public double primaryLoopCoolantPressure
+        {
+            get => coolantPressure;
+            set
+            {
+                if (coolantPressure != value)
+                {
+                    coolantPressure = value;
+                    updateUI(nameof(primaryLoopCoolantPressure));
+                }
+            }
+        }
+        public double primaryLoopCoolantFlow
+        {
+            get => coolantFlow;
+            set
+            {
+                if (coolantFlow != value)
+                {
+                    coolantFlow = value;
+                    updateUI(nameof(primaryLoopCoolantFlow));
+                }
+            }
+        }
+        public double primaryLoopHeatTransferEfficiency
+        {
+            get => heatTransferEfficiency;
+            set
+            {
+                if (heatTransferEfficiency != value)
+                {
+                    heatTransferEfficiency = value;
+                    updateUI(nameof(primaryLoopHeatTransferEfficiency));
+                }
+            }
+        }
+        public bool primaryLoopLowFlowIndicator
+        {
+            get => lowFlowIndicator;
+            set
+            {
+                if (lowFlowIndicator != value)
+                {
+                    lowFlowIndicator = value;
+                    updateUI(nameof(primaryLoopLowFlowIndicator));
+                }
+            }
+        }
+        public bool primaryLoopHighTemperatureIndicator
+        {
+            get => highTemperatureIndicator;
+            set
+            {
+                if (highTemperatureIndicator != value)
+                {
+                    highTemperatureIndicator = value;
+                    updateUI(nameof(primaryLoopHighTemperatureIndicator));
+                }
+            }
+        }
+        public bool primaryLoopLowPressureIndicator
+        {
+            get => lowPressureIndicator;
+            set
+            {
+                if (lowPressureIndicator != value)
+                {
+                    lowPressureIndicator = value;
+                    updateUI(nameof(primaryLoopLowPressureIndicator));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public PrimaryCoolingLoop(double temperature, double pressure, double flowRate)
+        {
+            this.coolantTemperature = temperature;
+            this.coolantPressure = pressure;
+            this.coolantFlow = flowRate;
+        }
 
         public void updatePrimaryCoolingLoop(double reactorTemperature, double timeElapsed)
         {
@@ -920,9 +714,14 @@ namespace ReactorSimulator
             highTemperatureIndicator = coolantTemperature >= 340.0;
             lowPressureIndicator = coolantPressure <= 145.0;
         }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class SecondaryCoolingLoop
+    public class SecondaryCoolingLoop : INotifyPropertyChanged
     {
         // Properties (Encapsulated)
         private double steamTemperature = 120.0;
@@ -933,14 +732,105 @@ namespace ReactorSimulator
         private bool highTemperatureIndicator = false;
         private bool lowPressureIndicator = false;
 
-        // Property Getters
-        public double getSteamTemperature() => steamTemperature;
-        public double getSteamPressure() => steamPressure;
-        public double getSteamFlow() => steamFlow;
-        public double getHeatTransferEfficiency() => heatTransferEfficiency;
-        public bool isLowFlowIndicator() => lowFlowIndicator;
-        public bool isHighTemperatureIndicator() => highTemperatureIndicator;
-        public bool isLowPressureIndicator() => lowPressureIndicator;
+        public double secondaryLoopSteamTemperature
+        {
+            get => steamTemperature;
+            set
+            {
+                if (steamTemperature != value)
+                {
+                    steamTemperature = value;
+                    updateUI(nameof(secondaryLoopSteamTemperature));
+                }
+            }
+        }
+
+        public double secondaryLoopSteamPressure
+        {
+            get => steamPressure;
+            set
+            {
+                if (steamPressure != value)
+                {
+                    steamPressure = value;
+                    updateUI(nameof(secondaryLoopSteamPressure));
+                }
+            }
+        }
+
+        public double secondaryLoopSteamFlow
+        {
+            get => steamFlow;
+            set
+            {
+                if (steamFlow != value)
+                {
+                    steamFlow = value;
+                    updateUI(nameof(secondaryLoopSteamFlow));
+                }
+            }
+        }
+
+        public double secondaryLoopHeatTransferEfficiency
+        {
+            get => heatTransferEfficiency;
+            set
+            {
+                if (heatTransferEfficiency != value)
+                {
+                    heatTransferEfficiency = value;
+                    updateUI(nameof(secondaryLoopHeatTransferEfficiency));
+                }
+            }
+        }
+
+        public bool secondaryLoopLowFlowIndicator
+        {
+            get => lowFlowIndicator;
+            set
+            {
+                if (lowFlowIndicator != value)
+                {
+                    lowFlowIndicator = value;
+                    updateUI(nameof(secondaryLoopLowFlowIndicator));
+                }
+            }
+        }
+
+        public bool secondaryLoopHighTemperatureIndicator
+        {
+            get => highTemperatureIndicator;
+            set
+            {
+                if (highTemperatureIndicator != value)
+                {
+                    highTemperatureIndicator = value;
+                    updateUI(nameof(secondaryLoopHighTemperatureIndicator));
+                }
+            }
+        }
+
+        public bool secondaryLoopLowPressureIndicator
+        {
+            get => lowPressureIndicator;
+            set
+            {
+                if (lowPressureIndicator != value)
+                {
+                    lowPressureIndicator = value;
+                    updateUI(nameof(secondaryLoopLowPressureIndicator));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public SecondaryCoolingLoop(double temperature, double pressure, double flowRate)
+        {
+            this.steamTemperature = temperature;
+            this.steamPressure = pressure;
+            this.steamFlow = flowRate;
+        }
 
         public void updateSecondaryCoolingLoop(double primaryLoopCoolantTemperature, double timeElapsed) // Method to call the methods for calculations. Runs every "clock" cycle from Reactor class.
         {
@@ -990,32 +880,73 @@ namespace ReactorSimulator
             bool highTemperatureIndicator = steamTemperature > 270;
             bool lowPressureIndicator = steamPressure < 10;
         }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class PowerGeneration
+    public class PowerGeneration : INotifyPropertyChanged
     {
         // Properties
         private double powerOutput = 0.0; // MW
         private double thermalPower = 0.0; // MW
         private double thermalEfficiency = 0.33; // %
 
-        public double getPowerOutput() => powerOutput;
-        public double getThermalPower() => thermalPower;
-        public double getThermalEfficiency() => thermalEfficiency;
+        public double powerGenerationPowerOutput
+        {
+            get => powerOutput;
+            set
+            {
+                if (powerOutput != value)
+                {
+                    powerOutput = value;
+                    updateUI(nameof(powerGenerationPowerOutput));
+                }
+            }
+        }
+        public double powerGenerationThermalPower
+        {
+            get => thermalPower;
+            set
+            {
+                if (thermalPower != value)
+                {
+                    thermalPower = value;
+                    updateUI(nameof(powerGenerationThermalPower));
+                }
+            }
+        }
+        public double powerGenerationThermalEfficiency
+        {
+            get => thermalEfficiency;
+            set
+            {
+                if (thermalEfficiency != value)
+                {
+                    thermalEfficiency = value;
+                    updateUI(nameof(powerGenerationThermalEfficiency));
+                }
+            }
+        }
 
         private Reactor reactor;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public PowerGeneration(Reactor reactor)
+        public PowerGeneration(Reactor reactor, double realPower, double thermalPower)
         {
             this.reactor = reactor;
+            this.powerOutput = realPower;
+            this.thermalPower = thermalPower;
         }
 
         public void updatePowerGeneration(double timeElapsed)
         {
-            double temperature = reactor.core.getTemperature();
-            double pressure = reactor.core.getPressure();
-            double coolantFlow = reactor.core.getCoolantFlow();
-            double reactivity = reactor.core.getReactivity();
+            double temperature = reactor.core.coreTemperature;
+            double pressure = reactor.core.corePressure;
+            double coolantFlow = reactor.core.coreCoolantFlow;
+            double reactivity = reactor.core.coreReactivity;
 
             double thermalPower = calculateThermalPower(temperature, pressure, coolantFlow, reactivity);
             double tempPowerOutput = thermalPower * thermalEfficiency;
@@ -1045,6 +976,11 @@ namespace ReactorSimulator
             {
                 dangerIndicator = true;
             }
+        }
+
+        protected void updateUI(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         // Need a method to check what is causing danger indicator. E.g. if high power output causes a danger indicator, it should switch off only if no other danger is present when the power goes back down to a safe level.

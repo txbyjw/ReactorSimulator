@@ -11,13 +11,13 @@ namespace ReactorSimulator
 {
     public class SettingsData // Class to hold application settings, serialisable.
     {
-        public string resolution { get; set; } = "1920x1080";
-        public bool fullscreen { get; set; } = false;
+        public string resolution { get; set; } = "1920x1080"; // Default resolution.
+        public bool fullscreen { get; set; } = false; // Fullscreen defaulted to off.
 
         public void Save() // Method which saves settings to the json file.
         {
 
-            string filePath = "F:\\Computing\\A-Level Computer Science NEA\\data\\options\\Settings.json";
+            string filePath = "D:\\Computing\\ReactorSimulator\\data\\options.json";
 
             try
             {
@@ -35,7 +35,7 @@ namespace ReactorSimulator
         public static SettingsData Load() // Method to load settings from the json.
         {
 
-            string filePath = "F:\\Computing\\A-Level Computer Science NEA\\data\\options\\Settings.json";
+            string filePath = "D:\\Computing\\ReactorSimulator\\data\\options.json";
 
             if (!File.Exists(filePath)) // If the file path doesn't exist, create a new one with default values.
             {
@@ -60,21 +60,27 @@ namespace ReactorSimulator
 
     public static class SettingsManager
     {
-        public static void applySettings(SettingsData settingsData, Menu menu)
+        public static void applySettings(SettingsData settingsData, Menu menu, Simulation simulation)
         {
-            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu);
+            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
 
             if (settingsData.fullscreen)
             {
                 menu.WindowStyle = WindowStyle.None;
                 menu.ResizeMode = ResizeMode.NoResize;
                 menu.WindowState = WindowState.Maximized;
+                simulation.WindowStyle = WindowStyle.None;
+                simulation.ResizeMode = ResizeMode.NoResize;
+                simulation.WindowState = WindowState.Maximized;
             }
             else
             {
                 menu.WindowStyle = WindowStyle.SingleBorderWindow;
                 menu.ResizeMode = ResizeMode.CanResize;
                 menu.WindowState = WindowState.Normal;
+                simulation.WindowStyle = WindowStyle.SingleBorderWindow;
+                simulation.ResizeMode = ResizeMode.CanResize;
+                simulation.WindowState = WindowState.Normal;
             }
         }
     }
@@ -83,6 +89,7 @@ namespace ReactorSimulator
     {
         private Menu menu;
         private SettingsData settingsData;
+        private Simulation simulation;
 
         public Settings(Menu menu) // Constructor for the settings window.
         {
@@ -90,13 +97,15 @@ namespace ReactorSimulator
             this.menu = menu;
             this.Topmost = true;
 
+            simulation = new Simulation();
+
             settingsData = SettingsData.Load();
             applyLoadedSettings();
         }
 
         private void applyLoadedSettings() // Method to update the UI based on applied settings.
         {
-            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu);
+            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
 
             foreach (ComboBoxItem item in resolutionOption.Items)
             {
@@ -139,7 +148,7 @@ namespace ReactorSimulator
             if (resolutionOption.SelectedItem != null)
             {
                 settingsData.resolution = (resolutionOption.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "1920x1080";
-                ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu);
+                ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
                 saveSettings();
             }
         }
