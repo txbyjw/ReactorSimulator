@@ -48,8 +48,8 @@
 
         <!-- Reset Password Button -->
         <Border Background="#404040" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,458,0,0" Width="100" Height="30">
-            <Button Background="Transparent" Click="resetPassword" BorderBrush="Transparent">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontFamily="Trebuchet MS" Foreground="#FFFFFF" FontWeight="Bold">Forgot password?</TextBlock>
+            <Button Background="Transparent" Click="changePassword" BorderBrush="Transparent">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontFamily="Trebuchet MS" Foreground="#FFFFFF" FontWeight="Bold">Change Password</TextBlock>
             </Button>
         </Border>
 

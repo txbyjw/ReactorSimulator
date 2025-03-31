@@ -6,76 +6,28 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Globalization;
 
 namespace ReactorSimulator
 {
     public partial class Simulation : Window
     {
-        private DispatcherTimer timer;
         private Reactor reactor;
-        private Menu menu;
 
-        private Core core;
-        private ControlRods controlRods;
-        private Pressuriser pressuriser;
-        private PrimaryCoolingLoop primaryLoop;
-        private SecondaryCoolingLoop secondaryLoop;
-        private PowerGeneration powerGeneration;
-
-        ScenarioData scenarioData = new ScenarioData();
-
-        private double coreTemperature;
-        private double corePressure;
-        private double coreCoolantFlow;
-        private double coreReactivity;
-        private double coreIntegrity;
-        private double coreFuelIntegrity;
-
-        private double controlRodsInsertionLevel;
-
-        private double pressuriserTemperature;
-        private double pressuriserPressure;
-        private double pressuriserFillLevel;
-        private double pressuriserHeatingPower;
-        private bool pressuriserHeaterOn;
-        private bool pressuriserReliefValveOpen;
-        private bool pressuriserSprayNozzlesActive;
-
-        private double primaryLoopTemperature;
-        private double primaryLoopPressure;
-        private double primaryLoopCoolantFlow;
-        private bool primaryLoopLowFlow;
-        private bool primaryLoopLowPressure;
-        private bool primaryLoopHighTemperature;
-
-        private double secondaryLoopTemperature;
-        private double secondaryLoopPressure;
-        private double secondaryLoopCoolantFlow;
-        private bool secondaryLoopLowFlow;
-        private bool secondaryLoopLowPressure;
-        private bool secondaryLoopHighTemperature;
-
-        private double powerGenerationPowerOutput;
-        private double powerGenerationThermalPower;
-
-        private int _scenarioIndex;
-
-        public Simulation()
+        public Simulation(int index)
         {
             InitializeComponent();
-            ScenarioData scenarioData = new ScenarioData();
-
-            reactor = new Reactor(this, scenarioData);
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000); // Update every second
-            // timer.Tick += updateUI;
-            timer.Start();
+            loadScenario(index);
+            SettingsManager.applyUserSettings(null, null, this);
         }
 
-        public void loadScenario()
+        public void loadScenario(int scenarioIndex) // Method that loads the scenario data into the simulation and sets the default values.
         {
-            string filePath = $"D:\\Computing\\ReactorSimulator\\data\\scenarios\\scenario2.json"; // Temporary until it is all working then will add proper selection.
+            string folder = "F:\\Computing\\ReactorSimulator\\data\\scenarios";
+            string filePath = Path.Combine(folder, $"scenario{scenarioIndex + 1}.json");
 
             if (File.Exists(filePath))
             {
@@ -84,43 +36,46 @@ namespace ReactorSimulator
                     string json = File.ReadAllText(filePath);
                     ScenarioData scenario = JsonSerializer.Deserialize<ScenarioData>(json);
 
-                    DataContext = reactor;
+                    double coreTemperature = scenario.coreTemperature;
+                    double corePressure = scenario.corePressure;
+                    double coreReactivity = scenario.coreReactivity;
+                    double coreNeutronFlux = scenario.coreNeutronFlux;
+                    double coreIntegrity = scenario.coreIntegrity;
+                    double coreFuelIntegrity = scenario.coreFuelIntegrity;
 
-                    coreTemperature = scenario.coreTemperature;
-                    corePressure = scenario.corePressure;
-                    coreCoolantFlow = scenario.coreCoolantFlow;
-                    coreReactivity = scenario.coreReactivity;
-                    coreIntegrity = scenario.coreIntegrity;
-                    coreFuelIntegrity = scenario.coreFuelIntegrity;
+                    double controlRodsInsertionLevel = scenario.controlRodsInsertionLevel;
 
-                    controlRodsInsertionLevel = scenario.controlRodInsertionLevel;
+                    double pressuriserTemperature = scenario.pressuriserTemperature;
+                    double pressuriserPressure = scenario.pressuriserPressure;
+                    double pressuriserFillLevel = scenario.pressuriserFillLevel;
+                    double pressuriserHeatingPower = scenario.pressuriserHeatingPower;
+                    bool pressuriserHeaterOn = scenario.pressuriserHeaterOn;
+                    bool pressuriserReliefValveOpen = scenario.pressuriserReliefValveOpen;
+                    bool pressuriserSprayNozzlesActive = scenario.pressuriserSprayNozzlesActive;
 
-                    pressuriserTemperature = scenario.pressuriserTemperature;
-                    pressuriserPressure = scenario.pressuriserPressure;
-                    pressuriserFillLevel = scenario.pressuriserFillLevel;
-                    pressuriserHeatingPower = scenario.pressuriserHeatingPower;
-                    pressuriserHeaterOn = scenario.pressuriserHeaterOn;
-                    pressuriserReliefValveOpen = scenario.pressuriserReliefValveOpen;
-                    pressuriserSprayNozzlesActive = scenario.pressuriserSprayNozzlesActive;
+                    double primaryLoopTemperature = scenario.primaryLoopTemperature;
+                    double primaryLoopPressure = scenario.primaryLoopPressure;
+                    double primaryLoopCoolantFlow = scenario.primaryLoopCoolantFlow;
+                    bool primaryLoopLowFlow = scenario.primaryLoopLowFlow;
+                    bool primaryLoopLowPressure = scenario.primaryLoopLowPressure;
+                    bool primaryLoopHighTemperature = scenario.primaryLoopHighTemperature;
 
-                    primaryLoopTemperature = scenario.primaryLoopTemperature;
-                    primaryLoopPressure = scenario.primaryLoopPressure;
-                    primaryLoopCoolantFlow = scenario.primaryLoopCoolantFlow;
-                    primaryLoopLowFlow = scenario.primaryLoopLowFlow;
-                    primaryLoopLowPressure = scenario.primaryLoopLowPressure;
-                    primaryLoopHighTemperature = scenario.primaryLoopHighTemperature;
+                    double secondaryLoopTemperature = scenario.secondaryLoopTemperature;
+                    double secondaryLoopPressure = scenario.secondaryLoopPressure;
+                    double secondaryLoopCoolantFlow = scenario.secondaryLoopCoolantFlow;
+                    bool secondaryLoopLowFlow = scenario.secondaryLoopLowFlow;
+                    bool secondaryLoopLowPressure = scenario.secondaryLoopLowPressure;
+                    bool secondaryLoopHighTemperature = scenario.secondaryLoopHighTemperature;
 
-                    secondaryLoopTemperature = scenario.secondaryLoopTemperature;
-                    secondaryLoopPressure = scenario.secondaryLoopPressure;
-                    secondaryLoopCoolantFlow = scenario.secondaryLoopCoolantFlow;
-                    secondaryLoopLowFlow = scenario.secondaryLoopLowFlow;
-                    secondaryLoopLowPressure = scenario.secondaryLoopLowPressure;
-                    secondaryLoopHighTemperature = scenario.secondaryLoopHighTemperature;
+                    double powerGenerationPowerOutput = scenario.powerGenerationPowerOutput;
+                    double powerGenerationThermalPower = scenario.powerGenerationThermalPower;
 
-                    powerGenerationPowerOutput = scenario.powerGenerationPowerOutput;
-                    powerGenerationThermalPower = scenario.powerGenerationThermalPower;
+                    reactor = new Reactor(this, scenario);
+                    while (DataContext == null)
+                    {
+                        this.DataContext = reactor;
+                    }
 
-                    updateUI();
                     MessageBox.Show($"Successfully loaded scenario!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
@@ -134,39 +89,6 @@ namespace ReactorSimulator
                 MessageBox.Show("Could not find requested scenario file. Simulation may not initialise correctly.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        public void updateUI(object sender, EventArgs e) // Updates the values on the UI with the variables received. F2 used to format to 2 dp for ease to the user.
-        {
-            CoreTemperature.Text = core.coreTemperature.ToString("F2");
-            CorePressure.Text = core.corePressure.ToString("F2");
-            CoreReactivity.Text = core.coreReactivity.ToString("F2");
-            CoreCoolantFlow.Text = core.coreCoolantFlow.ToString("F2");
-
-            ControlRodInsertion.Text = controlRods.ControlRodsInsertionLevel.ToString("F2");
-
-            PressuriserTemperature.Text = pressuriser.pressuriserTemperature.ToString("F2");
-            PressuriserPressure.Text = pressuriser.pressuriserPressure.ToString("F2");
-            PressuriserWaterLevel.Text = pressuriser.pressuriserWaterLevel.ToString("F2");
-            PressuriserHeatingPower.Text = pressuriser.pressuriserHeatingPower.ToString("F2");
-
-            PrimaryCoolantTemp.Text = primaryLoop.primaryLoopCoolantTemperature.ToString("F2");
-            PrimaryCoolantPressure.Text = primaryLoop.primaryLoopCoolantPressure.ToString("F2");
-            PrimaryCoolantFlow.Text = primaryLoop.primaryLoopCoolantFlow.ToString("F2");
-
-            SecondaryCoolantTemp.Text = secondaryLoop.secondaryLoopSteamTemperature.ToString("F2");
-            SecondaryCoolantPressure.Text = secondaryLoop.secondaryLoopSteamPressure.ToString("F2");
-            SecondaryCoolantFlow.Text = secondaryLoop.secondaryLoopSteamFlow.ToString("F2");
-
-            PowerOutput.Text = powerGeneration.powerGenerationPowerOutput.ToString("F2");
-            ThermalPower.Text = powerGeneration.powerGenerationThermalPower.ToString("F2");
-
-            dangerIndicator.Text = primaryLoopLowFlow || primaryLoopLowPressure || primaryLoopHighTemperature || secondaryLoopLowFlow || secondaryLoopLowPressure || secondaryLoopHighTemperature ? "Danger: Alert!" : "Danger: Safe";
-        }
-
-        public void updateUI() // Have to have this duplicated parsing null otherwise I get an error.
-        {
-            updateUI(null, null);
-        }
     }
 
     public class ScenarioData
@@ -175,10 +97,11 @@ namespace ReactorSimulator
         public double corePressure { get; set; }
         public double coreCoolantFlow { get; set; }
         public double coreReactivity { get; set; }
+        public double coreNeutronFlux { get; set; }
         public double coreIntegrity { get; set; }
         public double coreFuelIntegrity { get; set; }
 
-        public double controlRodInsertionLevel { get; set; }
+        public double controlRodsInsertionLevel { get; set; }
 
         public double pressuriserTemperature { get; set; }
         public double pressuriserPressure { get; set; }
@@ -204,5 +127,21 @@ namespace ReactorSimulator
 
         public double powerGenerationPowerOutput { get; set; }
         public double powerGenerationThermalPower { get; set; }
+    }
+
+    public class BoolToColourConverter : IValueConverter // This class changes bool values into colours for the indicators.
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue)
+            {
+                return boolValue ? Brushes.Green : Brushes.Red;
+            }
+            return Brushes.Gray;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) // Have to have this otherwise this feature doesn't work but this is never used as it's never converted back.
+        {
+            throw new NotImplementedException();
+        }
     }
 }

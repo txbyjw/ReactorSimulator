@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "scenario": 6,
+    "name": "Emergency Startup",
+    "description": "The reactor needs to be brought online as quickly as possible. Be careful, the conditions are not stable!",
+    "unlocked": true
+  },
+
+  "coreTemperature": 100,
+  "corePressure": 60,
+  "coreReactivity": 80,
+  "coreNeutronFlux": 800,
+  "coreIntegrity": 80,
+  "coreFuelIntegrity": 90,
+
+  "controlRodsInsertionLevel": 20,
+
+  "pressuriserTemperature": 150,
+  "pressuriserPressure": 70,
+  "pressuriserFillLevel": 95,
+  "pressuriserHeatingPower": 100,
+  "pressuriserHeaterOn": true,
+  "pressuriserReliefValveOpen": false,
+  "pressuriserSprayNozzlesActive": false,
+
+  "primaryLoopTemperature": 120,
+  "primaryLoopPressure": 65,
+  "primaryLoopCoolantFlow": 600,
+  "primaryLoopLowFlow": false,
+  "primaryLoopLowPressure": false,
+  "primaryLoopHighTemperature": false,
+
+  "secondaryLoopTemperature": 50,
+  "secondaryLoopPressure": 3,
+  "secondaryLoopCoolantFlow": 500,
+  "secondaryLoopLowFlow": false,
+  "secondaryLoopLowPressure": false,
+  "secondaryLoopHighTemperature": false,
+
+  "powerGenerationPowerOutput": 1200,
+  "powerGenerationThermalPower": 3500
+}

@@ -1,83 +1,155 @@
 ﻿using System;
-using System.Numerics;
+using System.IO;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using ReactorSimulator;
-using System.ComponentModel;
 using System.Diagnostics;
 
 namespace ReactorSimulator
 {
-    // Holds the "clock" to repeatedly call updates.
-    public class Reactor
+    public class Reactor : INotifyPropertyChanged
     {
+        private double timeElapsed = 0;
+        private string filePath = "F:\\Computing\\ReactorSimulator\\data\\log.txt";
+
         private DispatcherTimer timer;
-        public double timeElapsed = 0;
-        public event Action dangerStateChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public Core core;
-        public ControlRods controlRods;
-        public Pressuriser pressuriser;
-        public PrimaryCoolingLoop primaryLoop;
-        public SecondaryCoolingLoop secondaryLoop;
-        public PowerGeneration powerGeneration;
+        public Core core { get; private set; }
+        public ControlRods controlRods { get; private set; }
+        public Pressuriser pressuriser { get; private set; }
+        public PrimaryCoolingLoop primaryLoop { get; private set; }
+        public SecondaryCoolingLoop secondaryLoop { get; private set; }
+        public PowerGeneration powerGeneration { get; private set; }
         public Simulation simulationWindow;
-        private ScenarioData scenarioData;
 
-        public Reactor(Simulation window, ScenarioData scenarioData)
+        public Reactor(Simulation window, ScenarioData scenarioData) // Constructor
         {
             simulationWindow = window;
+            bool isInitialised = false;
 
-            core = new Core(this, scenarioData, scenarioData.coreTemperature, scenarioData.corePressure, scenarioData.coreReactivity, scenarioData.coreCoolantFlow, scenarioData.coreIntegrity, scenarioData.coreFuelIntegrity);
-            controlRods = new ControlRods(scenarioData.controlRodInsertionLevel);
-            pressuriser = new Pressuriser(scenarioData.pressuriserTemperature, scenarioData.pressuriserPressure, scenarioData.pressuriserFillLevel, scenarioData.pressuriserHeatingPower, scenarioData.pressuriserHeaterOn, scenarioData.pressuriserReliefValveOpen, scenarioData.pressuriserSprayNozzlesActive);
-            primaryLoop = new PrimaryCoolingLoop(scenarioData.primaryLoopTemperature, scenarioData.primaryLoopPressure, scenarioData.primaryLoopCoolantFlow);
-            secondaryLoop = new SecondaryCoolingLoop(scenarioData.secondaryLoopTemperature, scenarioData.secondaryLoopPressure, scenarioData.secondaryLoopCoolantFlow);
-            powerGeneration = new PowerGeneration(this, scenarioData.powerGenerationPowerOutput, scenarioData.powerGenerationThermalPower);
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000); // Temporarily, this will be user-set later.
-            // timer.Tick += (sender, e) => updateSimulation();
-            timer.Start();
-        }
-
-        private void updateSimulation() // Called every second to update each class and their attributes.
-        {
-            if (core == null || controlRods == null || pressuriser == null || primaryLoop == null || secondaryLoop == null || powerGeneration == null)
+            if (scenarioData == null)
             {
+                MessageBox.Show("ScenarioData is not being initialised.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            core.updateCore(timeElapsed);
-            controlRods.updateControlRods(50); // temporary until i sort user control out whenever
-            pressuriser.updatePressuriser(timeElapsed);
-            primaryLoop.updatePrimaryCoolingLoop(core.coreTemperature, timeElapsed);
-            secondaryLoop.updateSecondaryCoolingLoop(primaryLoop.primaryLoopCoolantTemperature, timeElapsed);
-            powerGeneration.updatePowerGeneration(timeElapsed);
-            checkIndicators();
+            // Initialising all of the components and passing the data from scenario data to them.
+            core = new Core(scenarioData.coreTemperature, scenarioData.corePressure, scenarioData.coreReactivity, scenarioData.coreNeutronFlux, scenarioData.coreCoolantFlow, scenarioData.coreIntegrity, scenarioData.coreFuelIntegrity);
+            controlRods = new ControlRods(scenarioData.controlRodsInsertionLevel);
+            pressuriser = new Pressuriser(scenarioData.pressuriserTemperature, scenarioData.pressuriserPressure, scenarioData.pressuriserFillLevel, scenarioData.pressuriserHeatingPower, scenarioData.pressuriserHeaterOn, scenarioData.pressuriserReliefValveOpen, scenarioData.pressuriserSprayNozzlesActive);
+            primaryLoop = new PrimaryCoolingLoop(scenarioData.primaryLoopTemperature, scenarioData.primaryLoopPressure, scenarioData.primaryLoopCoolantFlow);
+            secondaryLoop = new SecondaryCoolingLoop(scenarioData.secondaryLoopTemperature, scenarioData.secondaryLoopPressure, scenarioData.secondaryLoopCoolantFlow);
+            powerGeneration = new PowerGeneration(scenarioData.powerGenerationPowerOutput, scenarioData.powerGenerationThermalPower);
 
-            timeElapsed += 1;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1); // Temporarily, this will be user-set later.
+            timer.Tick += (sender, e) => updateSimulation(isInitialised);
+            timer.Start();
+
+            if (File.Exists(filePath)) // Makes a new log every time the simulation is started.
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show($"Could not delete the log file: {ex.Message}", "Log Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            try
+            {
+                using (File.Create(filePath)) { }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Could not create a log file: {ex.Message}", "Log Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void checkIndicators()
+        private async void updateSimulation(bool isInitialised) // The main method which calls all of the individual update calls and the log.
         {
-            bool previousState = core.coreTemperature > 350 || core.corePressure > 165 || core.coreCoolantFlow < 250 || core.coreReactivity > 95 || core.coreIntegrity < 30; // need to make this more efficient so i can add more without it being 5 miles long lol
-            dangerStateChanged?.Invoke();
+            if (!isInitialised)
+            {
+                await Task.Delay(1000);  // Waits a second to allow everything to load properly, added as a debug for the DataBinding but decided to leave as this could prevent any future issues anyway.
+            }
+
+            if (core == null || controlRods == null || pressuriser == null || primaryLoop == null || secondaryLoop == null || powerGeneration == null) // Stops the simulation if it doesn't initialise correctly, may try to change this to try again a few times before closing.
+            {
+                MessageBox.Show("A component is null and the program cannot initialise.\nTerminating...", "Simulation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await Task.Delay(3000);
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                isInitialised = true;
+            }
+
+            timeElapsed += 1;
+
+            core.updateCore(controlRods.controlRodsInsertionLevel, pressuriser.pressuriserTemperature, pressuriser.pressuriserPressure, primaryLoop.primaryLoopCoolantTemperature, primaryLoop.primaryLoopCoolantPressure, primaryLoop.primaryLoopCoolantFlow, powerGeneration.powerGenerationThermalPower);
+            controlRods.updateControlRods(core.coreNeutronFlux);
+            pressuriser.updatePressuriser(core.corePressure, primaryLoop.primaryLoopCoolantTemperature, primaryLoop.primaryLoopCoolantFlow);
+            primaryLoop.updatePrimaryCoolingLoop(core.coreTemperature, core.corePressure, pressuriser.pressuriserPressure, powerGeneration.powerGenerationThermalPower);
+            secondaryLoop.updateSecondaryCoolingLoop(primaryLoop.primaryLoopCoolantTemperature);
+            powerGeneration.updatePowerGeneration(core.coreTemperature, core.corePressure, core.coreReactivity, primaryLoop.primaryLoopCoolantTemperature, primaryLoop.primaryLoopCoolantPressure, primaryLoop.primaryLoopCoolantPressure, secondaryLoop.secondaryLoopSteamTemperature, secondaryLoop.secondaryLoopSteamPressure, secondaryLoop.secondaryLoopSteamFlow);
+            updateLog();
+        }
+
+        private void updateLog() // Method to write all values to a text file every cycle, using this for debugging calculations but might end up keeping.
+        {
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine($"New update: {timeElapsed}s");
+                writer.WriteLine($"Core Temperature: {core.coreTemperature}°C");
+                writer.WriteLine($"Core Pressure: {core.corePressure} bar");
+                writer.WriteLine($"Core Reactivity: {core.coreReactivity}%");
+                writer.WriteLine($"Core Neutron Flux: {core.coreNeutronFlux}");
+                writer.WriteLine($"Core Integrity: {core.coreIntegrity}%");
+                writer.WriteLine($"Core Fuel Integrity: {core.coreFuelIntegrity}%");
+
+                writer.WriteLine($"Control Rods Insertion Level: {controlRods.controlRodsInsertionLevel}%");
+
+                writer.WriteLine($"Pressuriser Temperature: {pressuriser.pressuriserTemperature}°C");
+                writer.WriteLine($"Pressuriser Pressure: {pressuriser.pressuriserPressure} bar");
+                writer.WriteLine($"Pressuriser Water Level: {pressuriser.pressuriserWaterLevel}%");
+                writer.WriteLine($"Pressuriser Heating Power: {pressuriser.pressuriserHeatingPower}KW");
+                writer.WriteLine($"Pressuriser Heater On: {pressuriser.pressuriserHeaterOn}");
+                writer.WriteLine($"Pressuriser Relief Valve Open: {pressuriser.pressuriserReliefValveOpen}");
+                writer.WriteLine($"Pressuriser Spray Nozzles Active: {pressuriser.pressuriserSprayNozzlesActive}");
+
+                writer.WriteLine($"Primary Loop Temperature: {primaryLoop.primaryLoopCoolantTemperature}°C");
+                writer.WriteLine($"Primary Loop Pressure: {primaryLoop.primaryLoopCoolantPressure} bar");
+                writer.WriteLine($"Primary Loop Coolant Flow: {primaryLoop.primaryLoopCoolantFlow} l/min");
+
+                writer.WriteLine($"Secondary Loop Temperature: {secondaryLoop.secondaryLoopSteamTemperature}°C");
+                writer.WriteLine($"Secondary Loop Pressure: {secondaryLoop.secondaryLoopSteamPressure} bar");
+                writer.WriteLine($"Secondary Loop Coolant Flow: {secondaryLoop.secondaryLoopSteamFlow} l/min");
+
+                writer.WriteLine($"Power Generation Power Output: {powerGeneration.powerGenerationPowerOutput} MW");
+                writer.WriteLine($"Power Generation Thermal Power: {powerGeneration.powerGenerationThermalPower} MW");
+            }
+        }
+
+        protected void updateUI(string propertyName) // Method that updates UI with the new values.
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
-    // Main class, contains most of the calculations.
     public class Core : INotifyPropertyChanged
     {
-        // Properties (Encapsulated)
+        // Properties
         private double temperature;
         private double pressure;
-        private double coolantFlow;
         private double reactivity;
+        private double neutronFlux;
         private double integrity;
         private double fuelIntegrity;
+        public double heatTransferred;
 
         // Getters
         public double coreTemperature
@@ -104,18 +176,6 @@ namespace ReactorSimulator
                 }
             }
         }
-        public double coreCoolantFlow
-        {
-            get => coolantFlow;
-            set
-            {
-                if (coolantFlow != value)
-                {
-                    coolantFlow = value;
-                    updateUI(nameof(coreCoolantFlow));
-                }
-            }
-        }
         public double coreReactivity
         {
             get => reactivity;
@@ -125,6 +185,18 @@ namespace ReactorSimulator
                 {
                     reactivity = value;
                     updateUI(nameof(coreReactivity));
+                }
+            }
+        }
+        public double coreNeutronFlux
+        {
+            get => neutronFlux;
+            set
+            {
+                if (neutronFlux != value)
+                {
+                    neutronFlux = value;
+                    updateUI(nameof(coreNeutronFlux));
                 }
             }
         }
@@ -153,7 +225,7 @@ namespace ReactorSimulator
             }
         }
 
-        // Indicators and Switches
+        /* Indicators and Switches - Not used so commenting out, need to implement in future versions
         private bool operatingPowerIndicator = true;
         private bool dangerIndicator = false;
         private bool overheatingIndicator = false;
@@ -166,176 +238,101 @@ namespace ReactorSimulator
         public bool isDangerIndicator() => dangerIndicator;
         public bool isCriticalMassIndicator() => criticalMassIndicator;
         public bool isReactiveIndicator() => reactiveIndicator;
-        public bool isEmergencyShutdownSwitch() => emergencyShutdownSwitch;
-
-        // Constants
-        private const double pressureTemperatureCoefficient = 0.5; // This is the (approximate) pressure increase per deg c above 300 degrees. Or at least google says so.
-
-        private Reactor reactor;
-        private ControlRods controlRods;
-        private Pressuriser pressuriser;
-        private PrimaryCoolingLoop primaryLoop;
-        private SecondaryCoolingLoop secondaryLoop;
-        private PowerGeneration powerGeneration;
-        private ScenarioData scenarioData;
+        public bool isEmergencyShutdownSwitch() => emergencyShutdownSwitch;*/
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Constructor class
-        public Core(Reactor reactor, ScenarioData scenarioData, double temperature, double pressure, double reactivity, double flowRate, double integrity, double fuelIntegrity)
+        public Core(double temperature, double pressure, double reactivity, double neutronFlux, double flowRate, double integrity, double fuelIntegrity)
         {
-            this.reactor = reactor;
-            this.temperature = temperature;
-            this.pressure = pressure;
-            this.reactivity = reactivity;
-            this.coolantFlow = flowRate;
-            this.integrity = integrity;
-            this.fuelIntegrity = fuelIntegrity;
-
-            controlRods = new ControlRods(scenarioData.controlRodInsertionLevel);
-            pressuriser = new Pressuriser(temperature, pressure, scenarioData.pressuriserFillLevel, scenarioData.pressuriserHeatingPower, scenarioData.pressuriserHeaterOn, scenarioData.pressuriserReliefValveOpen, scenarioData.pressuriserSprayNozzlesActive);
-            primaryLoop = new PrimaryCoolingLoop(scenarioData.primaryLoopTemperature, scenarioData.primaryLoopPressure, scenarioData.primaryLoopCoolantFlow);
-            secondaryLoop = new SecondaryCoolingLoop(scenarioData.secondaryLoopTemperature, scenarioData.secondaryLoopPressure, scenarioData.secondaryLoopCoolantFlow);
-            powerGeneration = new PowerGeneration(reactor, scenarioData.powerGenerationPowerOutput, scenarioData.powerGenerationThermalPower);
+            coreTemperature = temperature;
+            corePressure = pressure;
+            coreReactivity = reactivity;
+            coreNeutronFlux = neutronFlux;
+            coreIntegrity = integrity;
+            coreFuelIntegrity = fuelIntegrity;
         }
 
-        public Pressuriser GetPressuriser() => pressuriser;
-
-        public void updateCore(double timeElapsed)
+        public void updateCore(double controlRodsInsertionLevel, double pressuriserTemperature, double pressuriserPressure, double primaryLoopTemperature, double primaryLoopPressure, double primaryLoopFlowRate, double thermalPower)
         {
-            if (reactor == null) // Just a check to stop the calculations if the reactor isn't yet initialised.
-            {
-                return;
-            }
-
-            calculateReactivity(controlRods.ControlRodsNeutronAbsorbtionRate, primaryLoop.primaryLoopHeatTransferEfficiency, coreFuelIntegrity, coreTemperature, timeElapsed);
-            calculateTemperature(coreReactivity, primaryLoop.primaryLoopCoolantFlow, primaryLoop.primaryLoopCoolantTemperature, powerGeneration.powerGenerationThermalEfficiency, powerGeneration.powerGenerationPowerOutput);
-            calculatePressure(coreTemperature, primaryLoop.primaryLoopCoolantFlow, powerGeneration.powerGenerationPowerOutput, pressureTemperatureCoefficient, timeElapsed);
-            calculateIntegrity(coreTemperature, corePressure, timeElapsed);
+            coreTemperature = calculateTemperature(controlRodsInsertionLevel, pressuriserTemperature, primaryLoopTemperature, primaryLoopFlowRate, thermalPower);
+            corePressure = calculatePressure(primaryLoopFlowRate, pressuriserPressure);
+            coreReactivity = calculateReactivity(controlRodsInsertionLevel);
+            coreNeutronFlux = calculateNeutronFlux(thermalPower);
+            coreIntegrity = calculateIntegrity();
+            coreFuelIntegrity = calculateFuelIntegrity(thermalPower);
         }
 
-        public void calculateReactivity(double neutronAbsorbtionRate, double coolantModerationFactor, double fuelIntegrity, double temperature, double timeElapsed) // I cannot get this to calculate right and it is SO PAINFUL.
+        private double calculateTemperature(double rodsInsertionLevel, double pressuriserTemperature, double primaryLoopTemperature, double primaryLoopFlowRate, double thermalPower) // Calculates the core temperature and returns a clamped value.
         {
-            double controlRodEffect = Math.Max(0, 1 - (neutronAbsorbtionRate / 100)); // Stops the value being bigger than 1.
-            double coolantEffect = Math.Max(0, coolantModerationFactor * (1 - 0.01 * (temperature - 300))); // Keeps positive to prevent stupid negative values I was always getting.
-            double fuelEffect = Math.Max(0, fuelIntegrity * (1 - 0.005 * timeElapsed)); // Prevents negative fuel integrity because that would be stupid.
+            double baseTemperature = pressuriserTemperature;
+            double temperatureDifference = temperature - primaryLoopTemperature;
+            double heatCapacity = 3500;
 
-            double tempReactivity = reactivity * controlRodEffect * coolantEffect * fuelEffect; // 166250%? seems right bro idek if thats better than -3000%
+            double heatGenerated = 0.005 * thermalPower * (1 + reactivity / 200) * (1 - rodsInsertionLevel / 100);
+            double heatTransferred = 0.98 * (temperatureDifference * primaryLoopFlowRate / 500);
 
-            if (tempReactivity < 0 || tempReactivity > 100)
-            {
-                MessageBox.Show($"Reactivity out of range. Calculated reactivity was {tempReactivity}%, clamped value to be within range. (0% - 100%)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            double newTemperature = baseTemperature + ((heatGenerated - heatTransferred) / heatCapacity);
 
-            reactivity = Math.Clamp(tempReactivity, 0, 100);
-
-            reactiveIndicator = reactivity > 0;
-            criticalMassIndicator = reactivity >= 70;
-
-            if (!dangerIndicator) // Checks to see if danger indicator is already lit, don't want it to override with a false value if there is danger. WORK ON WHEN CAN.
-            {
-                dangerIndicator = reactivity >= 98;
-            }
+            return Math.Clamp(newTemperature, 0, 450);
         }
 
-        public void calculateTemperature(double reactivity, double coolantFlow, double coolantTemperature, double thermalConductivity, double powerOutput)
+        private double calculatePressure(double primaryLoopFlowRate, double pressuriserPressure) // Calculates the pressure inside the core and returns a clamped value.
         {
-            double heatGenerated = powerOutput * reactivity / 100;
-            double coolantEffect = coolantFlow * (coolantTemperature - 300);
-            double heatTransferred = thermalConductivity * (heatGenerated - coolantEffect);
-            double tempTemperature = temperature + (heatGenerated - heatTransferred) * 0.01;
+            double thermalExpansion = (temperature - 330) * 0.001;
+            double coolantDensityEffect = -(temperature - 330) * 0.0005;
+            double pressuriserEffect = (pressuriserPressure - pressure) * 0.5;
 
-            if (tempTemperature < 15 || tempTemperature > 500)
-            {
-                MessageBox.Show($"Temperature out of range. Calculated temperature was {tempTemperature}°C, clamped value to be within range (15°C - 500°C)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            double newPressure = pressuriserPressure + thermalExpansion + coolantDensityEffect + pressuriserEffect;
 
-            temperature = Math.Clamp(tempTemperature, 15, 500);
-
-            if (!dangerIndicator)
-            {
-                dangerIndicator = temperature >= 340;
-            }
-
-            overheatingIndicator = temperature >= 340;
-            criticalOverheatingIndicator = temperature >= 400;
+            return Math.Clamp(newPressure, 0, 175);
         }
 
-        public void calculatePressure(double temperature, double coolantFlow, double powerOutput, double pressureTemperatureCoefficient, double timeElapsed)
+        private double calculateReactivity(double rodsInsertionLevel) // Calculates the reactivity and clamps the value.
         {
-            pressuriser.updatePressuriser(timeElapsed);
-            double tempPressure = pressuriser.pressuriserPressure;
+            double controlRodEffect = -(rodsInsertionLevel / 100) * 1.5;
+            double fuelEffect = (fuelIntegrity / 100);
+            double temperatureFeedback = -(coreTemperature - 330) * 0.005;
 
-            tempPressure += (temperature - 300) * pressureTemperatureCoefficient;
+            double newReactivity = reactivity + controlRodEffect + fuelEffect + temperatureFeedback;
 
-            double powerEffect = powerOutput * 0.05;
-            double coolantEffect = coolantFlow * 0.01;
-
-            tempPressure += powerEffect;
-            tempPressure -= coolantEffect;
-
-            if (tempPressure < 1 || tempPressure > 180)
-            {
-                MessageBox.Show($"Pressure out of range. Calculated pressure was {tempPressure} bar, clamped value to be within range (1 bar - 180 bar)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
-            pressure = Math.Clamp(tempPressure, 1, 180);
-
-            if (!dangerIndicator)
-            {
-                dangerIndicator = pressure > 160;
-            }
+            return Math.Clamp(newReactivity, 0, 100);
         }
 
-        public void calculateIntegrity(double temperature, double pressure, double timeElapsed)
+        private double calculateNeutronFlux(double thermalPower) // Calculates 
         {
-            double tempIntegrity = coreIntegrity;
+            double baseFlux = 1e13;
 
-            if (temperature >= 350 || pressure >= 165) // 10 degrees / bar over where warnings start
-            {
-                double overTemperature = temperature - 350;
-                double overPressure = pressure - 165;
+            double reactivityEffect = reactivity * 1e11;
+            double powerEffect = thermalPower * 1e9;
 
-                dangerIndicator = true;
+            double newFlux = baseFlux + reactivityEffect + powerEffect;
 
-                if (overTemperature < 0)
-                {
-                    tempIntegrity -= 0.01 * overTemperature;
-                }
-                else if (overPressure < 0)
-                {
-                    tempIntegrity -= 0.1 * overPressure;
-                }
-            }
-            else
-            {
-                tempIntegrity -= 0.005 * timeElapsed; // Natural degradation, takes just over 5.5 hours to decay to 0% naturally so should be good. May reduce though.
-
-                if (!dangerIndicator)
-                {
-                    dangerIndicator = tempIntegrity < 20;
-                }
-            }
-
-            if (tempIntegrity <= 20)
-            {
-                dangerIndicator = true;
-            }
-
-            if (tempIntegrity < 0 || tempIntegrity > 100)
-            {
-                MessageBox.Show($"Integrity out of range. Calculated integrity was {tempIntegrity} bar, clamped value to be within range (1% - 100%)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
-            integrity = Math.Clamp(tempIntegrity, 0, 100);
+            return Math.Max(0, newFlux);
         }
 
-        public void calculateFuelEfficiency(double timeElapsed)
+        private double calculateIntegrity()
         {
-            double tempFuelEfficiency = coreFuelIntegrity;
+            double temperatureEffect = Math.Max(0, (temperature - 350) * 0.0005);
+            double pressureEffect = Math.Max(0, (corePressure - 165) * 0.01);
+            double fuelEffect = (100 - fuelIntegrity) * 0.00025;
+
+            double newIntegrity = integrity - (temperatureEffect + pressureEffect + fuelEffect);
+
+            return Math.Clamp(newIntegrity, 0, 100);
         }
 
-        protected void updateUI(string propertyName)
+        private double calculateFuelIntegrity(double thermalPower)
+        {
+            double temperatureEffect = Math.Max(0, (temperature - 400) * 0.00025);
+            double powerEffect = thermalPower * 0.00005;
+
+            double newIntegrity = fuelIntegrity - (temperatureEffect + powerEffect);
+
+            return Math.Clamp(newIntegrity , 0, 100);
+        }
+
+        public void updateUI(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -344,10 +341,12 @@ namespace ReactorSimulator
 
     public class ControlRods : INotifyPropertyChanged
     {
-        private double insertionLevel = 50;
-        private double neutronAbsorbtionRate = 50;
+        // Properties
+        private double insertionLevel;
+        private double neutronAbsorbtionRate;
 
-        public double ControlRodsInsertionLevel
+        // Getters
+        public double controlRodsInsertionLevel
         {
             get => insertionLevel;
             set
@@ -355,11 +354,11 @@ namespace ReactorSimulator
                 if (insertionLevel != value)
                 { 
                     insertionLevel = value;
-                    updateUI(nameof(ControlRodsInsertionLevel));
+                    updateUI(nameof(controlRodsInsertionLevel));
                 }
             }
         }
-        public double ControlRodsNeutronAbsorbtionRate
+        public double controlRodsNeutronAbsorbtionRate
         {
             get => neutronAbsorbtionRate;
             set
@@ -367,7 +366,7 @@ namespace ReactorSimulator
                 if (neutronAbsorbtionRate != value)
                 {
                     neutronAbsorbtionRate = value;
-                    updateUI(nameof(ControlRodsNeutronAbsorbtionRate));
+                    updateUI(nameof(controlRodsNeutronAbsorbtionRate));
                 }
             }
         }
@@ -376,23 +375,24 @@ namespace ReactorSimulator
 
         public ControlRods(double insertionLevel)
         {
-            this.insertionLevel = insertionLevel;
+            controlRodsInsertionLevel = insertionLevel;
         }
 
-        public void updateControlRods(double adjustment)
+        public void updateControlRods(double neutronFlux)
         {
-            adjustInsertion(adjustment);
+            controlRodsNeutronAbsorbtionRate = calculateNeutronAbsorbtionRate(neutronFlux);
         }
 
-        public void adjustInsertion(double adjustment)
+        private double calculateNeutronAbsorbtionRate(double neutronFlux)
         {
-            insertionLevel = Math.Clamp(insertionLevel + adjustment, 0, 100);
-            neutronAbsorbtionRate = Math.Pow(insertionLevel / 100, 2) * 100;
-        }
+            double baseRate = 1e11;
 
-        public void calculateNeutronAbsorbtionRate()
-        {
-            // Need to do.
+            double insertionEffect = insertionLevel / 100 * baseRate;
+            double fluxEffect = neutronFlux * 1e-11;
+
+            double newRate = insertionEffect + fluxEffect;
+
+            return Math.Max(0, newRate);
         }
 
         protected void updateUI(string propertyName)
@@ -412,6 +412,7 @@ namespace ReactorSimulator
         private bool reliefValveOpen;
         private bool sprayNozzlesActive;
 
+        // Getters
         public double pressuriserTemperature
         {
             get => temperature;
@@ -497,12 +498,6 @@ namespace ReactorSimulator
             }
         }
 
-        // Constants
-        private const double minPressure = 145.0;
-        private const double maxPressure = 165.0;
-        private const double minWaterLevel = 20.0;
-        private const double maxWaterLevel = 100.0;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Pressuriser(double temperature, double pressure, double fillLevel, double heatingPower, bool heaterOn, bool reliefValveOpen, bool sprayNozzlesActive)
@@ -516,59 +511,89 @@ namespace ReactorSimulator
             this.sprayNozzlesActive = sprayNozzlesActive;
         }
 
-        public void updatePressuriser(double timeElapsed)
+        public void updatePressuriser(double corePressure, double primaryLoopTemperature, double primaryLoopFlow) // Update method
         {
-            double tempTemperature = temperature;
-            double tempPressure = pressure;
-
-            if (heaterOn)
-            {
-                tempTemperature += heatingPower * 0.01 * timeElapsed;
-                tempPressure += heatingPower * 0.005 * timeElapsed;
-            }
-
-            if (reliefValveOpen)
-            {
-                tempPressure -= 0.1 * timeElapsed;
-                reliefValveOpen = tempPressure > maxPressure;
-            }
-
-            pressure = Math.Clamp(tempPressure, 0, maxPressure + 15);
-            temperature = Math.Clamp(tempTemperature, 15, 500);
+            pressuriserTemperature = calculateTemperature(primaryLoopTemperature);
+            pressuriserPressure = calculatePressure();
+            pressuriserWaterLevel = calculateVolume(corePressure, primaryLoopFlow);
+            pressuriserHeaterOn = heaterActive();
+            pressuriserSprayNozzlesActive = sprayActive();
+            pressuriserReliefValveOpen = ventActive();
         }
 
-        public void toggleHeater(bool status)
+        private double calculateTemperature(double primaryLoopTemperature)
         {
-            heaterOn = status;
-            heatingPower = status ? 500 : 0;
+            double heatingEffect = heaterOn ? heatingPower * 0.05 : 0;
+            double coolantEffect = sprayNozzlesActive ? -(temperature - primaryLoopTemperature) * 1 : 0;
+            double volumeEffect = (waterLevel / 1000);
+
+            double newTemperature = temperature + heatingEffect + coolantEffect + volumeEffect;
+
+            return Math.Clamp(newTemperature, 0, 450);
         }
 
-        public void toggleSprayNozzles()
+        private double calculatePressure()
         {
-            sprayNozzlesActive = true;
-            pressure -= 1.0;
-            sprayNozzlesActive = false;
+            double basePressure = 155;
+            double pressureDifference = basePressure - pressure;
+            double temperatureEffect = (temperature - 330) * 0.03;
+            double volumeEffect = (waterLevel - 80) * 0.2;
+            double ventEffect = reliefValveOpen ? (pressure - basePressure) * 0.1 : 0;
+
+            double newPressure = pressure + (pressureDifference * 0.5) + temperatureEffect + volumeEffect - ventEffect;
+
+            return Math.Clamp(newPressure, 0, 175);
         }
 
-        public void toggleReliefValve()
+        private double calculateVolume(double corePressure, double primaryLoopFlow)
         {
-            if (pressure > maxPressure)
-            {
-                reliefValveOpen = true;
-                pressure -= 2.0;
-            }
-            else if (pressure < minPressure)
-            {
-                toggleHeater(true);
-            }
+            double pressureEffect = (corePressure - 155) * 0.01;
+            double floweffect = (primaryLoopFlow - 250) * 0.0005;
 
-            if (waterLevel > maxWaterLevel || waterLevel < minWaterLevel)
+            double newVolume = waterLevel + floweffect + pressureEffect;
+
+            return Math.Clamp(newVolume, 0, 100);
+        }
+
+        // The following methods will be user-controlled if I have time
+        private bool heaterActive()
+        {
+            if (temperature <= 328 && waterLevel <=80)
             {
-                MessageBox.Show($"Water level out of range. Calculated water level was {waterLevel} bar, clamped value to be within range (0% - 100%)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return true;
+            }
+            else if (pressure >= 156 || waterLevel >= 85)
+            {
+                return false;
+            }
+            return heaterOn;
+        }
+
+        private bool sprayActive()
+        {
+            if (temperature >= 332 || pressure >= 157)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        protected void updateUI(string propertyName)
+        private bool ventActive()
+        {
+            if (pressure >= 158)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected void updateUI(string propertyName) // Method that updates UI with the new values.
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -577,59 +602,46 @@ namespace ReactorSimulator
     public class PrimaryCoolingLoop : INotifyPropertyChanged
     {
         // Properties
-        private double coolantTemperature;
-        private double coolantPressure;
-        private double coolantFlow;
-        private double heatTransferEfficiency;
+        private double temperature;
+        private double pressure;
+        private double flowRate;
         private bool lowFlowIndicator;
         private bool highTemperatureIndicator;
         private bool lowPressureIndicator;
 
         public double primaryLoopCoolantTemperature
         {
-            get => coolantTemperature;
+            get => temperature;
             set
             {
-                if (coolantTemperature != value)
+                if (temperature != value)
                 {
-                    coolantTemperature = value;
+                    temperature = value;
                     updateUI(nameof(primaryLoopCoolantTemperature));
                 }
             }
         }
         public double primaryLoopCoolantPressure
         {
-            get => coolantPressure;
+            get => pressure;
             set
             {
-                if (coolantPressure != value)
+                if (pressure != value)
                 {
-                    coolantPressure = value;
+                    pressure = value;
                     updateUI(nameof(primaryLoopCoolantPressure));
                 }
             }
         }
         public double primaryLoopCoolantFlow
         {
-            get => coolantFlow;
+            get => flowRate;
             set
             {
-                if (coolantFlow != value)
+                if (flowRate != value)
                 {
-                    coolantFlow = value;
+                    flowRate = value;
                     updateUI(nameof(primaryLoopCoolantFlow));
-                }
-            }
-        }
-        public double primaryLoopHeatTransferEfficiency
-        {
-            get => heatTransferEfficiency;
-            set
-            {
-                if (heatTransferEfficiency != value)
-                {
-                    heatTransferEfficiency = value;
-                    updateUI(nameof(primaryLoopHeatTransferEfficiency));
                 }
             }
         }
@@ -674,48 +686,40 @@ namespace ReactorSimulator
 
         public PrimaryCoolingLoop(double temperature, double pressure, double flowRate)
         {
-            this.coolantTemperature = temperature;
-            this.coolantPressure = pressure;
-            this.coolantFlow = flowRate;
+            this.temperature = temperature;
+            this.pressure = pressure;
+            this.flowRate = flowRate;
         }
 
-        public void updatePrimaryCoolingLoop(double reactorTemperature, double timeElapsed)
+        public void updatePrimaryCoolingLoop(double coreTemperature, double corePressure, double pressuriserPressure, double thermalPower) // Update method
         {
-            calculateHeatTransfer(reactorTemperature);
-            updateIndicators();
+            primaryLoopCoolantTemperature = calculateTemperature(coreTemperature, thermalPower);
+            primaryLoopCoolantPressure = calculatePressure(coreTemperature, corePressure, pressuriserPressure);
         }
 
-        private void calculateHeatTransfer(double reactorTemperature)
+        private double calculateTemperature(double coreTemperature, double thermalPower) // Calculates the primary loop temperature.
         {
-            double tempCoolantTemperature = coolantTemperature;
-            double heatRemoved = reactorTemperature * (coolantFlow / 500.0) * (heatTransferEfficiency / 100.0);
-            tempCoolantTemperature += (reactorTemperature - heatRemoved) * 0.01;
+            double coreEffect = (coreTemperature - temperature) * 0.1;
+            double powerEffect = thermalPower * 0.0005;
+            double flowEffect = -(flowRate - 250) * 0.002;
 
-            if (tempCoolantTemperature < 15 || tempCoolantTemperature > 500)
-            {
-                MessageBox.Show($"Temperature out of range. Calculated temperature was {tempCoolantTemperature}°C, clamped value to be within range (15°C - 500°C)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            double newTemperature = temperature + coreEffect + powerEffect + flowEffect;
 
-            coolantTemperature = Math.Clamp(tempCoolantTemperature, 15, 500);
+            return Math.Clamp(newTemperature, 0, 450);
         }
 
-        public void adjustFlow(double newFlow) // Validates that newFlow is within range and updates private variable.
+        private double calculatePressure(double coreTemperature, double corePressure, double pressuriserPressure) // Calculates the primary loop pressure.
         {
-            if (newFlow < 0 || newFlow > 500)
-            {
-                MessageBox.Show($"Coolant flow rate is out of range. The flow rate was calculated to be {newFlow} m3/min. Clamped value to be within correct range (0 m3/min  - 500 m3/min)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            coolantFlow = Math.Clamp(newFlow, 0, 500);
+            double coreEffect = (corePressure - pressure) * 0.1;
+            double temperatureEffect = (temperature - coreTemperature) * 0.01;
+            double pressuriserEffect = -(pressuriserPressure - pressure) * 0.01;
+
+            double newPressure = pressure + coreEffect + temperatureEffect + pressuriserEffect;
+
+            return Math.Clamp(newPressure, 0, 175);
         }
 
-        private void updateIndicators() // Method to change the indicators if required.
-        {
-            lowFlowIndicator = coolantFlow < 100.0;
-            highTemperatureIndicator = coolantTemperature >= 340.0;
-            lowPressureIndicator = coolantPressure <= 145.0;
-        }
-
-        protected void updateUI(string propertyName)
+        protected void updateUI(string propertyName) // Method that updates UI with the new values.
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -723,67 +727,51 @@ namespace ReactorSimulator
 
     public class SecondaryCoolingLoop : INotifyPropertyChanged
     {
-        // Properties (Encapsulated)
-        private double steamTemperature = 120.0;
-        private double steamPressure = 10.0;
-        private double steamFlow = 300.0;
-        private double heatTransferEfficiency = 90.0;
-        private bool lowFlowIndicator = false;
-        private bool highTemperatureIndicator = false;
-        private bool lowPressureIndicator = false;
+        // Properties
+        private double temperature;
+        private double pressure;
+        private double flowRate;
+        private bool lowFlowIndicator;
+        private bool highTemperatureIndicator;
+        private bool lowPressureIndicator;
 
+        // Getters
         public double secondaryLoopSteamTemperature
         {
-            get => steamTemperature;
+            get => temperature;
             set
             {
-                if (steamTemperature != value)
+                if (temperature != value)
                 {
-                    steamTemperature = value;
+                    temperature = value;
                     updateUI(nameof(secondaryLoopSteamTemperature));
                 }
             }
         }
-
         public double secondaryLoopSteamPressure
         {
-            get => steamPressure;
+            get => pressure;
             set
             {
-                if (steamPressure != value)
+                if (pressure != value)
                 {
-                    steamPressure = value;
+                    pressure = value;
                     updateUI(nameof(secondaryLoopSteamPressure));
                 }
             }
         }
-
         public double secondaryLoopSteamFlow
         {
-            get => steamFlow;
+            get => flowRate;
             set
             {
-                if (steamFlow != value)
+                if (flowRate != value)
                 {
-                    steamFlow = value;
+                    flowRate = value;
                     updateUI(nameof(secondaryLoopSteamFlow));
                 }
             }
         }
-
-        public double secondaryLoopHeatTransferEfficiency
-        {
-            get => heatTransferEfficiency;
-            set
-            {
-                if (heatTransferEfficiency != value)
-                {
-                    heatTransferEfficiency = value;
-                    updateUI(nameof(secondaryLoopHeatTransferEfficiency));
-                }
-            }
-        }
-
         public bool secondaryLoopLowFlowIndicator
         {
             get => lowFlowIndicator;
@@ -796,7 +784,6 @@ namespace ReactorSimulator
                 }
             }
         }
-
         public bool secondaryLoopHighTemperatureIndicator
         {
             get => highTemperatureIndicator;
@@ -809,7 +796,6 @@ namespace ReactorSimulator
                 }
             }
         }
-
         public bool secondaryLoopLowPressureIndicator
         {
             get => lowPressureIndicator;
@@ -825,63 +811,40 @@ namespace ReactorSimulator
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SecondaryCoolingLoop(double temperature, double pressure, double flowRate)
+        public SecondaryCoolingLoop(double temperature, double pressure, double flowRate) // Constructor
         {
-            this.steamTemperature = temperature;
-            this.steamPressure = pressure;
-            this.steamFlow = flowRate;
+            this.temperature = temperature;
+            this.pressure = pressure;
+            this.flowRate = flowRate;
         }
 
-        public void updateSecondaryCoolingLoop(double primaryLoopCoolantTemperature, double timeElapsed) // Method to call the methods for calculations. Runs every "clock" cycle from Reactor class.
+        public void updateSecondaryCoolingLoop(double primaryLoopTemperature) // Method to call the methods for secondary loop calculations.
         {
-            calculateHeatTransfer(primaryLoopCoolantTemperature);
-            updateIndicators();
+            secondaryLoopSteamTemperature = calculateTemperature(primaryLoopTemperature);
+            secondaryLoopSteamPressure = calculatePressure();
         }
 
-        private void calculateHeatTransfer(double primaryLoopCoolantTemperature) // Method to calculate the steam temperature. Also returns steam pressure.
+        private double calculateTemperature(double primaryLoopTemperature) // Method that calculates the steam temperature.
         {
-            double tempSteamTemperature = steamTemperature;
-            double heatTransferred = primaryLoopCoolantTemperature * (steamFlow / 500.0) * (heatTransferEfficiency / 100.0);
-            tempSteamTemperature += (heatTransferred - steamTemperature) * 0.02;
+            double heatTransferred = (primaryLoopTemperature - temperature) * flowRate * 0.001;
 
-            if (tempSteamTemperature < 100 || tempSteamTemperature > 400)
-            {
-                MessageBox.Show($"Temperature out of range. Calculated temperature was {tempSteamTemperature}°C, clamped value to be within range (100°C - 400°C)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            double newTemperature = temperature + heatTransferred;
 
-            steamTemperature = Math.Clamp(tempSteamTemperature, 100, 400);
-            steamPressure = calculateSteamPressure(steamTemperature);
+            return Math.Clamp(newTemperature, 0, 150);
         }
 
-        private double calculateSteamPressure(double temperature) // Method to calculate the steam pressure. Simple equation.
+        private double calculatePressure() // Method to calculate the steam pressure
         {
-            double tempPressure = (temperature - 100) * 0.4 + 5;
+            double basePressure = temperature > 100 ? 50 + (temperature - 100) * 0.2 : 0;
 
-            if (tempPressure > 60 || tempPressure < 5)
-            {
-                MessageBox.Show($"Steam pressure is out of range. The pressure was calculated to be {tempPressure} bar. Clamped value to be within correct range (5 bar - 60 bar)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            double flowEffect = flowRate * 0.01;
 
-            return Math.Clamp(tempPressure, 5, 60); // Returning the calculated pressure back to "calculateHeatTransfer()".
+            double newPressure = basePressure + flowEffect;
+
+            return Math.Clamp(newPressure, 0, 80);
         }
 
-        public void adjustSteamFlow(double newFlow) // Double checks newFlow is within range and updates once validated.
-        {
-            if (newFlow < 0 || newFlow > 500)
-            {
-                MessageBox.Show($"Steam flow rate is out of range. The flow rate was calculated to be {newFlow}m3/min. Clamped value to be within correct range (0m3/min  - 500m3/min)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            steamFlow = Math.Clamp(newFlow, 0, 500);
-        }
-
-        private void updateIndicators()
-        {
-            bool lowFlowIndicator = steamFlow < 100;
-            bool highTemperatureIndicator = steamTemperature > 270;
-            bool lowPressureIndicator = steamPressure < 10;
-        }
-
-        protected void updateUI(string propertyName)
+        protected void updateUI(string propertyName) // Method that updates UI with the new values.
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -890,10 +853,10 @@ namespace ReactorSimulator
     public class PowerGeneration : INotifyPropertyChanged
     {
         // Properties
-        private double powerOutput = 0.0; // MW
-        private double thermalPower = 0.0; // MW
-        private double thermalEfficiency = 0.33; // %
+        private double powerOutput;
+        private double thermalPower;
 
+        // Getters
         public double powerGenerationPowerOutput
         {
             get => powerOutput;
@@ -918,71 +881,49 @@ namespace ReactorSimulator
                 }
             }
         }
-        public double powerGenerationThermalEfficiency
-        {
-            get => thermalEfficiency;
-            set
-            {
-                if (thermalEfficiency != value)
-                {
-                    thermalEfficiency = value;
-                    updateUI(nameof(powerGenerationThermalEfficiency));
-                }
-            }
-        }
 
-        private Reactor reactor;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public PowerGeneration(Reactor reactor, double realPower, double thermalPower)
+        public PowerGeneration(double realPower, double thermalPower) // Constructor
         {
-            this.reactor = reactor;
             this.powerOutput = realPower;
             this.thermalPower = thermalPower;
         }
 
-        public void updatePowerGeneration(double timeElapsed)
+        public void updatePowerGeneration(double coreTemperature, double corePressure, double reactivity, double primaryLoopTemperature, double primaryLoopPressure, double primaryLoopFlow, double secondaryLoopTemperature, double secondaryLoopPressure, double secondaryLoopFlow) // Method to call the methods for power generation calculations.
         {
-            double temperature = reactor.core.coreTemperature;
-            double pressure = reactor.core.corePressure;
-            double coolantFlow = reactor.core.coreCoolantFlow;
-            double reactivity = reactor.core.coreReactivity;
-
-            double thermalPower = calculateThermalPower(temperature, pressure, coolantFlow, reactivity);
-            double tempPowerOutput = thermalPower * thermalEfficiency;
-
-            if (tempPowerOutput < 0)
-            {
-                MessageBox.Show($"Power output is out of range. The power output was calculated to be {tempPowerOutput}MW. Clamped value to be within correct range (0MW  - 1000MW)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                tempPowerOutput = 0;
-            }
-
-            powerOutput = Math.Clamp(tempPowerOutput, 0, 1000);
-
-            updatePowerIndicators();
+            powerGenerationPowerOutput = calculateElectricalPower(secondaryLoopTemperature, secondaryLoopPressure, secondaryLoopFlow);
+            powerGenerationThermalPower = calculateThermalPower(coreTemperature, corePressure, reactivity, primaryLoopFlow);
         }
 
-        private double calculateThermalPower(double temperature, double pressure, double coolantFlow, double reactivity) // Calculates the thermal power of the reactor, not the final power output.
+        private double calculateElectricalPower(double secondaryLoopTemperature, double secondaryLoopPressure, double secondaryLoopFlow) // Method to calculate the electrical power output.
         {
-            double power = (temperature - 300) * 0.1 * (pressure / 150) * (coolantFlow * 400) * (reactivity * 100);
-            return Math.Clamp(power, 0, 1100);
+            double efficiency = 0.33;
+            double temperatureEfficiency = secondaryLoopTemperature / 300;
+            double pressureEfficiency = secondaryLoopPressure / 60;
+            double flowEfficiency = secondaryLoopFlow / 300;
+            double overallEfficency = efficiency * temperatureEfficiency * pressureEfficiency * flowEfficiency;
+
+            double newPower = thermalPower * overallEfficency;
+
+            return Math.Clamp(newPower, 0, 1500);
         }
 
-        private void updatePowerIndicators() // Fix
+        private double calculateThermalPower(double coreTemperature, double corePressure, double reactivity, double primaryLoopFlow) // Method to calculate the raw thermal power output.
         {
-            bool dangerIndicator = reactor.core.isDangerIndicator();
+            double temperatureEffect = coreTemperature * 0.1;
+            double pressureEffect = corePressure * 0.05;
+            double reactivityEffect = reactivity * 10;
+            double flowEffect = primaryLoopFlow * 0.02;
 
-            if (powerOutput > 1000)
-            {
-                dangerIndicator = true;
-            }
+            double newPower = (temperatureEffect + reactivityEffect + pressureEffect + flowEffect) * 3; // temporary fix need to re-look at this equation.
+
+            return Math.Clamp(newPower, 0, 4000);
         }
 
-        protected void updateUI(string propertyName)
+        protected void updateUI(string propertyName) // Method that updates UI with the new values.
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        // Need a method to check what is causing danger indicator. E.g. if high power output causes a danger indicator, it should switch off only if no other danger is present when the power goes back down to a safe level.
     }
 }

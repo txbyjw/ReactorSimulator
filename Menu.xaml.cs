@@ -12,16 +12,9 @@ namespace ReactorSimulator
         private List<int> scenarioIndex;
         private List<string> scenarios;
         private Dictionary<string, string> scenarioDescriptions;
+        private Settings settingsWindow;
+        private Simulation simulationWindow;
         private int currentScenarioIndex = 0;
-
-        private Reactor reactor;
-        private Core core;
-        private ControlRods controlRods;
-        private Pressuriser pressuriser;
-        private PrimaryCoolingLoop primaryLoop;
-        private SecondaryCoolingLoop secondaryLoop;
-        private PowerGeneration powerGeneration;
-        private Simulation simulation;
 
         public int _scenarioIndex
         {
@@ -29,29 +22,20 @@ namespace ReactorSimulator
             set { currentScenarioIndex = value; }
         }
 
-        public Menu(string user)
+        public Menu(string username, string userID) // Constructor
         {
             InitializeComponent();
-            currentUser.Text = $"Currently logged in as {user}.";
+            currentUser.Text = $"Currently logged in as {username}.";
+            SettingsManager.loadUserSettings(userID, this, null, null);
+            SettingsManager.applyUserSettings(this, null, null);
             int scenarioIndex = currentScenarioIndex + 1;
             ScenarioData scenarioData = new ScenarioData();
 
-            core = new Core(reactor, scenarioData, 0, 0, 0, 0, 0, 0); // Have to parse a double so hopefully resetting to 0 will work as it loads scenario anyway. Same for below.
-            controlRods = new ControlRods(0);
-            pressuriser = new Pressuriser(0, 0, 0, 0, false, false, false);
-            primaryLoop = new PrimaryCoolingLoop(0, 0, 0);
-            secondaryLoop = new SecondaryCoolingLoop(0, 0, 0);
-            powerGeneration = new PowerGeneration(reactor, 0, 0);
-            simulation = new Simulation();
-
-            string scenarioFolder = "D:\\Computing\\ReactorSimulator\\data\\scenarios";
+            string scenarioFolder = "F:\\Computing\\ReactorSimulator\\data\\scenarios";
             loadScenarios(scenarioFolder);
-
-            SettingsData settingsData = SettingsData.Load();
-            SettingsManager.applySettings(settingsData, this, simulation);
         }
 
-        private void loadScenarios(string path)
+        private void loadScenarios(string path) // Method that loads all of the scenarios in the scenario folder.
         {
             scenarioIndex = new List<int>();
             scenarios = new List<string>();
@@ -91,35 +75,36 @@ namespace ReactorSimulator
             }
         }
 
-        private void previousScenario(object sender, RoutedEventArgs e)
+        private void previousScenario(object sender, RoutedEventArgs e) // Moves to the previous displayed scenario.
         {
             currentScenarioIndex = (currentScenarioIndex == 0) ? scenarios.Count - 1 : currentScenarioIndex - 1;
             updateScenario();
         }
 
-        private void nextScenario(object sender, RoutedEventArgs e)
+        private void nextScenario(object sender, RoutedEventArgs e) // Moves to the next displayed scenario.
         {
             currentScenarioIndex = (currentScenarioIndex == scenarios.Count - 1) ? 0 : currentScenarioIndex + 1;
             updateScenario();
         }
 
-        private void updateScenario()
+        private void updateScenario() // Method that actually updates the displayed scenario from the index.
         {
             scenarioSelector.Text = scenarios[currentScenarioIndex];
             scenarioDescription.Text = scenarioDescriptions[scenarios[currentScenarioIndex]];
         }
 
-        private void beginSimulation(object sender, RoutedEventArgs e)
+        private void beginSimulation(object sender, RoutedEventArgs e) // Method called from the begin button, starts the simulation.
         {
-            Simulation simulationWindow = new Simulation();
+            simulationWindow = new Simulation(currentScenarioIndex);
+            SettingsManager.applyUserSettings(this, settingsWindow, simulationWindow);
             simulationWindow.Show();
             this.Close();
         }
 
-        private void openSettings(object sender, RoutedEventArgs e)
+        private void openSettings(object sender, RoutedEventArgs e) // MEthod called from the settings button, opens the settings window.
         {
-            Settings settingsWindow = new Settings(this);
-            settingsWindow.ShowDialog();
+            settingsWindow = new Settings(this);
+            settingsWindow.Show();
         }
 
         private void openDocumentation(object sender, RoutedEventArgs e)
@@ -132,8 +117,9 @@ namespace ReactorSimulator
             // need to add - this will be easy (hopefully)
         }
 
-        private void userSelection(object sender, RoutedEventArgs e)
+        private void userSelection(object sender, RoutedEventArgs e) // Called from the change user button, goes back to the authenticator.
         {
+            SettingsManager.unloadUserSettings();
             Authenticator authenticatorWindow = new Authenticator();
             authenticatorWindow.Show();
             this.Close();
@@ -144,7 +130,7 @@ namespace ReactorSimulator
             // again need to add.
         }
 
-        private void quit(object sender, RoutedEventArgs e)
+        private void quit(object sender, RoutedEventArgs e) // Needs no explanation really.
         {
             Application.Current.Shutdown();
         }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Pressurised Water Reactor Simulator" Height="1080" Width="1920" Background="#404040" SizeToContent="Manual">
     <Viewbox Stretch="Uniform">
-        <Grid>
+        <Grid Width="1920">
             <!-- Title -->
             <Border Background="#707070" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Padding="20">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="80" FontFamily="Trebuchet MS" Foreground="#FFFFFF" Text="Pressurised Water Reactor Simulator"/>

@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "scenario": 3,
+    "name": "High Temperature Startup",
+    "description": "The reactor core starts at a higher temperature than normal. You need to carefully manage the reactor and get it back to a safe temperature.",
+    "unlocked": true
+  },
+
+  "coreTemperature": 400,
+  "corePressure": 155,
+  "coreReactivity": 20,
+  "coreNeutronFlux": 100,
+  "coreIntegrity": 95,
+  "coreFuelIntegrity": 98,
+
+  "controlRodsInsertionLevel": 80,
+
+  "pressuriserTemperature": 350,
+  "pressuriserPressure": 155,
+  "pressuriserFillLevel": 60,
+  "pressuriserHeatingPower": 80,
+  "pressuriserHeaterOn": false,
+  "pressuriserReliefValveOpen": false,
+  "pressuriserSprayNozzlesActive": true,
+
+  "primaryLoopTemperature": 380,
+  "primaryLoopPressure": 155,
+  "primaryLoopCoolantFlow": 200,
+  "primaryLoopLowFlow": false,
+  "primaryLoopLowPressure": false,
+  "primaryLoopHighTemperature": true,
+
+  "secondaryLoopTemperature": 150,
+  "secondaryLoopPressure": 20,
+  "secondaryLoopCoolantFlow": 150,
+  "secondaryLoopLowFlow": false,
+  "secondaryLoopLowPressure": false,
+  "secondaryLoopHighTemperature": true,
+
+  "powerGenerationPowerOutput": 200,
+  "powerGenerationThermalPower": 800
+}

@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "scenario": 5,
+    "name": "Cooling Loop Disruption",
+    "description": "The primary cooling loop has a reduced flow rate. Manage the core temperature and pressure carefully.",
+    "unlocked": true
+  },
+
+  "coreTemperature": 340,
+  "corePressure": 160,
+  "coreReactivity": 40,
+  "coreNeutronFlux": 450,
+  "coreIntegrity": 90,
+  "coreFuelIntegrity": 97,
+
+  "controlRodsInsertionLevel": 60,
+
+  "pressuriserTemperature": 335,
+  "pressuriserPressure": 162,
+  "pressuriserFillLevel": 70,
+  "pressuriserHeatingPower": 60,
+  "pressuriserHeaterOn": false,
+  "pressuriserReliefValveOpen": true,
+  "pressuriserSprayNozzlesActive": true,
+
+  "primaryLoopTemperature": 320,
+  "primaryLoopPressure": 160,
+  "primaryLoopCoolantFlow": 250,
+  "primaryLoopLowFlow": true,
+  "primaryLoopLowPressure": false,
+  "primaryLoopHighTemperature": false,
+
+  "secondaryLoopTemperature": 130,
+  "secondaryLoopPressure": 15,
+  "secondaryLoopCoolantFlow": 200,
+  "secondaryLoopLowFlow": false,
+  "secondaryLoopLowPressure": false,
+  "secondaryLoopHighTemperature": false,
+
+  "powerGenerationPowerOutput": 800,
+  "powerGenerationThermalPower": 2500
+}

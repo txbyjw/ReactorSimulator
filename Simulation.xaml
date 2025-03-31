@@ -1,83 +1,137 @@
 ﻿<Window x:Class="ReactorSimulator.Simulation"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ReactorSimulator"
         Title="Simulation" Height="1080" Width="1920" Background="#404040">
+    <Window.Resources>
+        <local:BoolToColourConverter x:Key="BoolToColour"/>
+        <!-- <Style TargetType="Slider">
+                <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Border CornerRadius="8" Background="#404040">
+                            <Grid>
+                                <Track></Track>
+                                <Thumb Margin="0,5,0,0">
+                                    <Thumb.Template>
+                                        <ControlTemplate>
+                                            <Path Fill="#FFFFFF">
+                                                <Path.Data>
+                                                    <RectangleGeometry Rect="0,0,10,20" RadiusX="3" RadiusY="3" />
+                                                </Path.Data>
+                                            </Path>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style> -->
+    </Window.Resources>
     <Viewbox Stretch="Uniform">
-        <Grid>
+        <Grid Width="2560" Height="1440">
             <!-- Core -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Left" Margin="10,10,0,704">
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="550" Margin="30,201,2080,689">
                 <StackPanel>
                     <TextBlock Text="Core" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="CoreTemperature" Text="{Binding CoreTemperature}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="CorePressure" Text="{Binding CorePressure}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Reactivity:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="CoreReactivity" Text="{Binding CoreReactivity}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Control Rod Insertion:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="ControlRodInsertion" Text="{Binding ControlRodInsertion}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Coolant Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="CoreCoolantFlow" Text="{Binding CoreCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="CoreTemperature" Text="{Binding core.coreTemperature, StringFormat={}{0:F2} °C}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="CorePressure" Text="{Binding core.corePressure, StringFormat={}{0:F2} bar}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Reactivity:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="CoreReactivity" Text="{Binding core.coreReactivity, StringFormat={}{0:F2}%}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Core Integrity:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="CoreIntegrity" Text="{Binding core.coreIntegrity, StringFormat={}{0:F2}%}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Fuel Integrity:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="FuelIntegrity" Text="{Binding core.coreFuelIntegrity, StringFormat={}{0:F2}%}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Control Rod Insertion:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="ControlRods" Text="{Binding controlRods.controlRodsInsertionLevel, StringFormat={}{0:F2}%}" FontSize="30" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <Slider x:Name="ControlRodSlider" Width="300" Height="30" Orientation="Horizontal" Value="{Binding controlRods.controlRodsInsertionLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" Maximum="100" TickFrequency="0.5" IsSnapToTickEnabled="True"/>
                 </StackPanel>
             </Border>
 
             <!-- Pressuriser -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Right" Margin="0,10,989,704">
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="550" Margin="534,201,1576,689">
                 <StackPanel>
                     <TextBlock Text="Pressuriser" FontSize="40" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PressuriserTemperature" Text="{Binding PressuriserTemperature}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PressuriserPressure" Text="{Binding PressuriserPressure}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Water Level:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PressuriserWaterLevel" Text="{Binding PressuriserWaterLevel}" FontSize="30" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Heating Power:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PressuriserHeatingPower" Text="{Binding PressuriserHeatingPower}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Temperature:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="PressuriserTemperature" Text="{Binding pressuriser.pressuriserTemperature, StringFormat={}{0:F2}°C}" HorizontalAlignment="Center" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="PressuriserPressure" Text="{Binding pressuriser.pressuriserPressure, StringFormat={}{0:F2} bar}" HorizontalAlignment="Center" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Water Level:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="PressuriserWaterLevel" Text="{Binding pressuriser.pressuriserWaterLevel, StringFormat={}{0:F2}%}" HorizontalAlignment="Center" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Heating Power:" FontSize="20" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Name="PressuriserHeatingPower" Text="{Binding pressuriser.pressuriserHeatingPower, StringFormat={}{0:F2}KW}" HorizontalAlignment="Center" FontSize="30" Foreground="#FFFFFF"/>
+                    <Slider Name="PressuriserHeatingPowerSlider" Width="300" Height="30" HorizontalAlignment="Center" Orientation="Horizontal" Value="{Binding pressuriser.pressuriserHeatingPower, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="10" Maximum="50" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <StackPanel Orientation="Horizontal" Width="400">
+                        <Path Fill="{Binding pressuriser.pressuriserHeaterOn, Converter={StaticResource BoolToColour}}">
+                            <Path.Data>
+                                <RectangleGeometry Rect="0,0,25,25" RadiusX="8" RadiusY="8" />
+                            </Path.Data>
+                        </Path>
+                        <TextBlock Text="Heater" Margin="5,0,10,0" FontSize="20" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                        <Path Fill="{Binding pressuriser.pressuriserSprayNozzlesActive, Converter={StaticResource BoolToColour}}">
+                            <Path.Data>
+                                <RectangleGeometry Rect="0,0,25,25" RadiusX="8" RadiusY="8" />
+                            </Path.Data>
+                        </Path>
+                        <TextBlock Text="Spray Nozzles" Margin="5,0,10,0" FontSize="20" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                        <Path Fill="{Binding pressuriser.pressuriserReliefValveOpen, Converter={StaticResource BoolToColour}}">
+                            <Path.Data>
+                                <RectangleGeometry Rect="0,0,25,25" RadiusX="8" RadiusY="8" />
+                            </Path.Data>
+                        </Path>
+                        <TextBlock Text="Relief Valve" Margin="5,0,10,0" FontSize="20" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
             <!-- Primary Cooling Loop -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Left" Margin="10,387,0,327">
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" Margin="30,787,2080,303">
                 <StackPanel>
                     <TextBlock Text="Primary Cooling Loop" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
                     <TextBlock Text="Coolant Temperature:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PrimaryCoolantTemp" Text="{Binding PrimaryCoolantTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantTemp" Text="{Binding primaryLoop.primaryLoopCoolantTemperature, StringFormat={}{0:F2}°C}" FontSize="30" Foreground="#FFFFFF"/>
                     <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PrimaryCoolantPressure" Text="{Binding PrimaryCoolantPressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantPressure" Text="{Binding primaryLoop.primaryLoopCoolantPressure, StringFormat={}{0:F2} bar}" FontSize="30" Foreground="#FFFFFF"/>
                     <TextBlock Text="Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PrimaryCoolantFlow" Text="{Binding PrimaryCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PrimaryCoolantFlow" Text="{Binding primaryLoop.primaryLoopCoolantFlow, StringFormat={}{0:F2} l/min}" FontSize="30" Foreground="#FFFFFF"/>
+                    <Slider Name="PrimaryCoolantSlider" Width="300" Height="30" Orientation="Horizontal" Value="{Binding primaryLoop.primaryLoopCoolantFlow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="100" Maximum="500" TickFrequency="50" IsSnapToTickEnabled="True"/>
                 </StackPanel>
             </Border>
 
             <!-- Secondary Cooling Loop -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" HorizontalAlignment="Right" Margin="0,387,989,327">
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="350" Margin="534,787,1576,303">
                 <StackPanel>
                     <TextBlock Text="Secondary Cooling Loop" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
                     <TextBlock Text="Coolant Temperature:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="SecondaryCoolantTemp" Text="{Binding SecondaryCoolantTemperature}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantTemp" Text="{Binding secondaryLoop.secondaryLoopSteamTemperature, StringFormat={}{0:F2} °C}" FontSize="30" Foreground="#FFFFFF"/>
                     <TextBlock Text="Pressure:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="SecondaryCoolantPressure" Text="{Binding SecondaryCoolantPressure}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantPressure" Text="{Binding secondaryLoop.secondaryLoopSteamPressure, StringFormat={}{0:F2} bar}" FontSize="30" Foreground="#FFFFFF"/>
                     <TextBlock Text="Flow Rate:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="SecondaryCoolantFlow" Text="{Binding SecondaryCoolantFlow}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="SecondaryCoolantFlow" Text="{Binding secondaryLoop.secondaryLoopSteamFlow, StringFormat={}{0:F2} l/min}" FontSize="30" Foreground="#FFFFFF"/>
+                    <Slider Name="SecondaryCoolantSlider" Width="300" Height="30" Orientation="Horizontal" Value="{Binding secondaryLoop.secondaryLoopSteamFlow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="100" Maximum="500" TickFrequency="50" IsSnapToTickEnabled="True"/>
                 </StackPanel>
             </Border>
 
             <!-- Power Generation -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="250" HorizontalAlignment="Left" Margin="10,777,0,37">
+            <Border Background="#707070" CornerRadius="15" Width="450" Height="250" Margin="287,1164,1823,26">
                 <StackPanel>
                     <TextBlock Text="Power Generation" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Power Output:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="PowerOutput" Text="{Binding PowerOutput}" FontSize="30" Foreground="#FFFFFF"/>
                     <TextBlock Text="Thermal Power:" FontSize="20" Foreground="#FFFFFF"/>
-                    <TextBlock Name="ThermalPower" Text="{Binding ThermalPower}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Name="ThermalPower" Text="{Binding powerGeneration.powerGenerationThermalPower, StringFormat={}{0:F2} MW}" FontSize="30" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Electrical Power:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Name="PowerOutput" Text="{Binding powerGeneration.powerGenerationPowerOutput, StringFormat={}{0:F2} MW}" FontSize="30" Foreground="#FFFFFF"/>
                 </StackPanel>
             </Border>
 
-            <!-- Indicators -->
-            <Border Background="#707070" CornerRadius="15" Width="450" Height="250" HorizontalAlignment="Right" Margin="0,777,989,37">
+            <!-- Indicators - NEEDS WORK-->
+            <Border Background="#707070" CornerRadius="15" Width="950" Height="150" HorizontalAlignment="Left" Margin="30,10,0,1280">
                 <StackPanel>
                     <TextBlock Text="Indicators" FontSize="35" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Danger Level:" FontSize="20" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Danger Indicator" FontSize="20" Foreground="#FFFFFF"/>
                     <TextBlock Name="dangerIndicator" Text="{Binding DangerIndicator}" FontSize="30" Foreground="#5CED73"/>
                 </StackPanel>
             </Border>

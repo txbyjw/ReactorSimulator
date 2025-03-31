@@ -1,6 +1,26 @@
 {
-    "users": {
-        "Toby": "b44f26b0419b92c4e8f1c91d1a3da8284f990e2254ee6e11d93635093e8326e5",
-        "Admin": "c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f"
-    }
+  "users": {
+    "ID": null,
+    "password": null
+  },
+  "Toby": {
+    "ID": "1",
+    "password": "b44f26b0419b92c4e8f1c91d1a3da8284f990e2254ee6e11d93635093e8326e5"
+  },
+  "Connor": {
+    "ID": "2",
+    "password": "8d49c28ee7f54d812568e7f4bf8e2da7ceafaef7b2240f67f2e5909f60d5b3f6"
+  },
+  "Janik": {
+    "ID": "3",
+    "password": "8d4321d936320802386311d254c4af52951abb880b47fb077edf3d89c150b289"
+  },
+  "Admin": {
+    "ID": "4",
+    "password": "c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f"
+  },
+  "Admin2": {
+    "ID": "5",
+    "password": "0a7e44ceef76bdb001c9db079d5de4cd3fc583d6a67338863a764f454c3811c4"
+  }
 }

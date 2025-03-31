@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "scenario": 4,
+    "name": "Low Pressure Operation",
+    "description": "The reactor starts with a low pressure in all of the systems. Try to get it back to normal.",
+    "unlocked": true
+  },
+
+  "coreTemperature": 250,
+  "corePressure": 80,
+  "coreReactivity": 60,
+  "coreNeutronFlux": 600,
+  "coreIntegrity": 98,
+  "coreFuelIntegrity": 99,
+
+  "controlRodsInsertionLevel": 40,
+
+  "pressuriserTemperature": 200,
+  "pressuriserPressure": 85,
+  "pressuriserFillLevel": 90,
+  "pressuriserHeatingPower": 30,
+  "pressuriserHeaterOn": false,
+  "pressuriserReliefValveOpen": false,
+  "pressuriserSprayNozzlesActive": false,
+
+  "primaryLoopTemperature": 220,
+  "primaryLoopPressure": 80,
+  "primaryLoopCoolantFlow": 500,
+  "primaryLoopLowFlow": false,
+  "primaryLoopLowPressure": true,
+  "primaryLoopHighTemperature": false,
+
+  "secondaryLoopTemperature": 80,
+  "secondaryLoopPressure": 5,
+  "secondaryLoopCoolantFlow": 400,
+  "secondaryLoopLowFlow": false,
+  "secondaryLoopLowPressure": false,
+  "secondaryLoopHighTemperature": false,
+
+  "powerGenerationPowerOutput": 600,
+  "powerGenerationThermalPower": 1800
+}

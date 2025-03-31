@@ -1,40 +1,42 @@
 {
   "metadata": {
-    "scenario":  2,
-    "name": "Normal Mode",
-    "description": "The reactor starts at optimal operating values. It is your job to maintain it at that state."
+    "scenario": 2,
+    "name": "Free Mode",
+    "description": "The reactor starts in a shutdown state. You need to start it up and get it stabilised.",
+    "unlocked": true
   },
-  "coreTemperature": 330,
-  "corePressure": 155,
-  "coreCoolantFlow": 400,
-  "coreReactivity": 50,
+
+  "coreTemperature": 20,
+  "corePressure": 50,
+  "coreReactivity": 0,
+  "coreNeutronFlux":  0,
   "coreIntegrity": 100,
   "coreFuelIntegrity": 100,
 
-  "controlRodsInsertionLevel": 50,
+  "controlRodsInsertionLevel": 100,
 
-  "pressuriserTemperature": 330,
-  "pressuriserPressure": 155,
-  "pressuriserFillLevel": 80,
-  "pressuriserHeatingPower": 500,
-  "pressuriserHeaterOn": true,
+  "pressuriserTemperature": 20,
+  "pressuriserPressure": 50,
+  "pressuriserFillLevel": 75,
+  "pressuriserHeatingPower": 50,
+  "pressuriserHeaterOn": false,
   "pressuriserReliefValveOpen": false,
   "pressuriserSprayNozzlesActive": false,
 
-  "pclTemperature": 300,
-  "pclPressure": 155,
-  "pclCoolantFlow": 400,
-  "pclLowFlow": false,
-  "pclLowPressure": false,
-  "pclHighTemperature": false,
+  "primaryLoopTemperature": 20,
+  "primaryLoopPressure": 50,
+  "primaryLoopCoolantFlow": 100,
+  "primaryLoopLowFlow": false,
+  "primaryLoopLowPressure": false,
+  "primaryLoopHighTemperature": false,
 
-  "sclTemperature": 120,
-  "sclPressure": 10,
-  "sclCoolantFlow": 300,
-  "sclLowFlow": false,
-  "sclLowPressure": false,
-  "sclHighTemperature": false,
+  "secondaryLoopTemperature": 20,
+  "secondaryLoopPressure": 1,
+  "secondaryLoopCoolantFlow": 100,
+  "secondaryLoopLowFlow": false,
+  "secondaryLoopLowPressure": false,
+  "secondaryLoopHighTemperature": false,
 
-  "pgPowerOutput": 0,
-  "pgThermalPower": 0
+  "powerGenerationPowerOutput": 0,
+  "powerGenerationThermalPower": 0
 }

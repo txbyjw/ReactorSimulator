@@ -11,13 +11,19 @@ namespace ReactorSimulator
 {
     public class SettingsData // Class to hold application settings, serialisable.
     {
-        public string resolution { get; set; } = "1920x1080"; // Default resolution.
-        public bool fullscreen { get; set; } = false; // Fullscreen defaulted to off.
+        public string resolution { get; set; } = "1920x1080";
+        public bool fullscreen { get; set; } = false;
 
-        public void Save() // Method which saves settings to the json file.
+        public void save(string userID) // Method which saves settings to the json file.
         {
+            string folderPath = "F:\\Computing\\ReactorSimulator\\data\\options";
 
-            string filePath = "D:\\Computing\\ReactorSimulator\\data\\options.json";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string filePath = Path.Combine(folderPath, $"{userID}.json");
 
             try
             {
@@ -25,34 +31,32 @@ namespace ReactorSimulator
                 string json = JsonSerializer.Serialize(this, options);
                 File.WriteAllText(filePath, json);
             }
-            catch (Exception ex) // Gives the user a warning window popup if the program can't save the settings. More useful for personal debugging.
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error saving settings: {ex.Message}\n{ex.StackTrace}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw;
+                MessageBox.Show($"Error saving settings: {ex.Message}\n{ex.StackTrace}.", "SettingsData Save Method Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public static SettingsData Load() // Method to load settings from the json.
+        public static SettingsData load(string userID) // Method to load settings from the json.
         {
+            string folderPath = "F:\\Computing\\ReactorSimulator\\data\\options";
+            string filePath = Path.Combine(folderPath, $"{userID}.json");
 
-            string filePath = "D:\\Computing\\ReactorSimulator\\data\\options.json";
-
-            if (!File.Exists(filePath)) // If the file path doesn't exist, create a new one with default values.
+            if (!File.Exists(filePath))
             {
-                MessageBox.Show($"Couldn't locate the settings file. Creating a new file and defaulting values.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 var defaultSettings = new SettingsData();
-                defaultSettings.Save();
+                defaultSettings.save(userID);
                 return defaultSettings;
             }
 
-            try // Reads the json string and deserialises it into a SettingsData object.
+            try
             {
                 string json = File.ReadAllText(filePath);
                 return JsonSerializer.Deserialize<SettingsData>(json) ?? new SettingsData();
             }
-            catch (Exception ex) // Similar to last catch, displays an error window if the program can't load the settings.
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error loading settings: {ex.Message}\n{ex.StackTrace}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error loading settings: {ex.Message}\n{ex.StackTrace}.", "SettingsData Load Method Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return new SettingsData();
             }
         }
@@ -60,97 +64,135 @@ namespace ReactorSimulator
 
     public static class SettingsManager
     {
-        public static void applySettings(SettingsData settingsData, Menu menu, Simulation simulation)
-        {
-            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
+        public static SettingsData currentUserSettings;
+        private static string currentUserID;
 
-            if (settingsData.fullscreen)
+        public static void loadUserSettings(string userID, Window menuWindow, Window settingsWindow, Window simulationWindow) // Method that loads the user ID and passes it to the load method in SettingsData, then applies the settings (done on launch)
+        {
+            currentUserID = userID;
+            currentUserSettings = SettingsData.load(currentUserID);
+            applyUserSettings(menuWindow, settingsWindow, simulationWindow);
+        }
+
+        public static void saveUserSettings() // Calls the save method in SettingsData.
+        {
+            if (currentUserSettings != null && currentUserID != null)
             {
-                menu.WindowStyle = WindowStyle.None;
-                menu.ResizeMode = ResizeMode.NoResize;
-                menu.WindowState = WindowState.Maximized;
-                simulation.WindowStyle = WindowStyle.None;
-                simulation.ResizeMode = ResizeMode.NoResize;
-                simulation.WindowState = WindowState.Maximized;
+                currentUserSettings.save(currentUserID);
             }
-            else
+        }
+
+        public static void applyUserSettings(Window menuWindow, Window settingsWindow, Window simulationWindow) // Method to apply the setings to the open window(s).
+        {
+            if (currentUserSettings != null)
             {
-                menu.WindowStyle = WindowStyle.SingleBorderWindow;
-                menu.ResizeMode = ResizeMode.CanResize;
-                menu.WindowState = WindowState.Normal;
-                simulation.WindowStyle = WindowStyle.SingleBorderWindow;
-                simulation.ResizeMode = ResizeMode.CanResize;
-                simulation.WindowState = WindowState.Normal;
+                if (menuWindow != null)
+                {
+                    ResolutionManager.applyResolution(currentUserSettings.resolution, currentUserSettings.fullscreen, menuWindow);
+                }
+
+                if (simulationWindow != null)
+                {
+                    ResolutionManager.applyResolution(currentUserSettings.resolution, currentUserSettings.fullscreen, simulationWindow);
+                }
+
+                if (settingsWindow != null)
+                {
+                    string[] parts = currentUserSettings.resolution.Split("x");
+
+                    if (parts.Length == 2 && int.TryParse(parts[0], out int width) && int.TryParse(parts[1], out int height))
+                    {
+                        settingsWindow.Width = Math.Clamp(width * 0.4, 300, 500);
+                        settingsWindow.Height = Math.Clamp(height * 0.5, 500, 600);
+                    }
+                }
             }
+        }
+
+        public static void unloadUserSettings() // Method called when the user logs out to unload the settings.
+        {
+            currentUserSettings = null;
+            currentUserID = null;
+        }
+
+        public static string getUserID() // Same as the getUserID method in the Authenticator.
+        {
+            string filePath = "F:\\Computing\\ReactorSimulator\\data\\options";
+            string[] files = Directory.GetFiles(filePath);
+
+            if (files.Length == 0)
+            {
+                return "1";
+            }
+
+            int lastItem = 0;
+            foreach (string file in files)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(file);
+                if (int.TryParse(fileName, out int number))
+                {
+                    lastItem = Math.Max(lastItem, number);
+                }
+            }
+            return (lastItem + 1).ToString();
         }
     }
 
-    public partial class Settings : Window // Partial class representing the settings window.
+    public partial class Settings : Window
     {
         private Menu menu;
         private SettingsData settingsData;
-        private Simulation simulation;
 
-        public Settings(Menu menu) // Constructor for the settings window.
+        public Settings(Menu menu)
         {
             InitializeComponent();
             this.menu = menu;
             this.Topmost = true;
 
-            simulation = new Simulation();
+            settingsData = SettingsManager.currentUserSettings;
 
-            settingsData = SettingsData.Load();
-            applyLoadedSettings();
-        }
-
-        private void applyLoadedSettings() // Method to update the UI based on applied settings.
-        {
-            ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
-
-            foreach (ComboBoxItem item in resolutionOption.Items)
+            if (settingsData != null)
             {
-                if (item.Content.ToString() == settingsData.resolution)
+                foreach (ComboBoxItem item in resolutionOption.Items)
                 {
-                    resolutionOption.SelectedItem = item;
-                    break;
+                    if (item.Content.ToString() == settingsData.resolution)
+                    {
+                        resolutionOption.SelectedItem = item;
+                        break;
+                    }
                 }
+                fullscreenCheckbox.IsChecked = settingsData.fullscreen;
             }
 
-            fullscreenCheckbox.IsChecked = settingsData.fullscreen;
+            SettingsManager.applyUserSettings(null, this, null);
         }
 
-        private void saveSettings() // Method to save the applied settings to the json file.
+        private void saveSettings() // Does what it says on the tin
         {
-            settingsData.resolution = (resolutionOption.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "1920x1080";
-            settingsData.fullscreen = fullscreenCheckbox.IsChecked ?? false;
-            settingsData.Save();
-        }
-
-        private void fullscreenChecked(object sender, RoutedEventArgs e) // Event handler to toggle fullscreen.
-        {
-            if (fullscreenCheckbox.IsChecked == true)
-            {
-                menu.WindowStyle = WindowStyle.None;
-                menu.ResizeMode = ResizeMode.NoResize;
-                menu.WindowState = WindowState.Maximized;
-            }
-            else
-            {
-                menu.WindowStyle = WindowStyle.SingleBorderWindow;
-                menu.ResizeMode = ResizeMode.CanResize;
-                menu.WindowState = WindowState.Normal;
-            }
-            saveSettings();
-        }
-
-        private void applyResolution(object sender, EventArgs e) // Event handler to handle resolution changes.
-        {
-            if (resolutionOption.SelectedItem != null)
+            if (settingsData != null)
             {
                 settingsData.resolution = (resolutionOption.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "1920x1080";
-                ResolutionManager.applyResolution(settingsData.resolution, settingsData.fullscreen, menu, simulation);
-                saveSettings();
+                settingsData.fullscreen = fullscreenCheckbox.IsChecked ?? false;
             }
+        }
+
+        private void fullscreenChecked(object sender, RoutedEventArgs e) // Method called from the checkbox, calls the save method.
+        {
+            if (settingsData != null)
+            {
+                settingsData.fullscreen = fullscreenCheckbox.IsChecked ?? false;
+            }
+
+            saveSettings();
+            SettingsManager.saveUserSettings();
+        }
+
+        private void applyResolution(object sender, EventArgs e) // Method that applies the resolution, called from the "apply" button.
+        {
+            saveSettings();
+            SettingsManager.saveUserSettings();
+            SettingsManager.applyUserSettings(menu, this, null);
+            this.Close();
         }
     }
 }

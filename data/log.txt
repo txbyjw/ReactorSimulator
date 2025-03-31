@@ -1,0 +1,1725 @@
+New update: 1s
+Core Temperature: 329.99586928571426°C
+Core Pressure: 154.99999793464286 bar
+Core Reactivity: 50.250020653571426%
+Core Neutron Flux: 17925002065357.14
+Core Integrity: 100%
+Core Fuel Integrity: 99.855%
+Control Rods Insertion Level: 50%
+Pressuriser Temperature: 330.08°C
+Pressuriser Pressure: 155.0024 bar
+Pressuriser Water Level: 80.07499997934643%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 304.1495869285714°C
+Primary Loop Pressure: 154.74151296989288 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 502.42500000000007 MW
+Power Generation Thermal Power: 1639.033870861247 MW
+New update: 2s
+Core Temperature: 330.075675319395°C
+Core Pressure: 155.00363887033825 bar
+Core Reactivity: 50.49819227697445%
+Core Neutron Flux: 16688853098558.691
+Core Integrity: 99.99996375%
+Core Fuel Integrity: 99.77304830645694%
+Control Rods Insertion Level: 50%
+Pressuriser Temperature: 330.1600749999793°C
+Pressuriser Pressure: 155.02100224586866 bar
+Pressuriser Water Level: 80.15003636804981%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 307.26171270308436°C
+Primary Loop Pressure: 154.53679104101454 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 283.96261812671105 MW
+Power Generation Thermal Power: 1646.4912241980637 MW
+New update: 3s
+Core Temperature: 330.1564376833363°C
+Core Pressure: 155.0297621524755 bar
+Core Reactivity: 50.74514057162234%
+Core Neutron Flux: 16721005281360.299
+Core Integrity: 99.99990701207662%
+Core Fuel Integrity: 99.69072374524704%
+Control Rods Insertion Level: 50%
+Pressuriser Temperature: 330.24022503634734°C
+Pressuriser Pressure: 155.0477151476347 bar
+Pressuriser Water Level: 80.22533398957457%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 310.07443081320855°C
+Primary Loop Pressure: 154.38015884239314 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 285.2546045923146 MW
+Power Generation Thermal Power: 1653.918422307086 MW
+New update: 4s
+Core Temperature: 330.2372077811202°C
+Core Pressure: 155.05681024910484 bar
+Core Reactivity: 50.99086177016921%
+Core Neutron Flux: 16753004599324.008
+Core Integrity: 99.99982969301293%
+Core Fuel Integrity: 99.60802782413168%
+Control Rods Insertion Level: 50%
+Pressuriser Temperature: 330.3204503703369°C
+Pressuriser Pressure: 155.07853788284234 bar
+Pressuriser Water Level: 80.30090209206561%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 312.6176677211533°C
+Primary Loop Pressure: 154.26464479206015 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 286.5413666647027 MW
+Power Generation Thermal Power: 1661.3114156643019 MW
+New update: 5s
+Core Temperature: 330.3194521951067°C
+Core Pressure: 155.08956142580863 bar
+Core Reactivity: 51.97034478743499%
+Core Neutron Flux: 16858345894407.8
+Core Integrity: 99.99973169996896%
+Core Fuel Integrity: 99.52496225334846%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.400751272429°C
+Pressuriser Pressure: 155.11147189800715 bar
+Pressuriser Water Level: 80.3767977063237%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 314.91850187638073°C
+Primary Loop Pressure: 154.18465868118827 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 287.8222027638403 MW
+Power Generation Thermal Power: 1690.7206930163243 MW
+New update: 6s
+Core Temperature: 330.40031396928043°C
+Core Pressure: 155.12262729109108 bar
+Core Reactivity: 52.948592840122075%
+Core Neutron Flux: 16985579977028.531
+Core Integrity: 99.9996129405323%
+Core Fuel Integrity: 99.44042621869765%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.4811280701353°C
+Pressuriser Pressure: 155.14552933237238 bar
+Pressuriser Water Level: 80.45302397923462%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 317.01204343217887°C
+Primary Loop Pressure: 154.1349641302957 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 292.9173600650782 MW
+Power Generation Thermal Power: 1720.0943713359275 MW
+New update: 7s
+Core Temperature: 330.4834550733872°C
+Core Pressure: 155.15722208054973 bar
+Core Reactivity: 53.92557982694211%
+Core Neutron Flux: 17112652354030.139
+Core Integrity: 99.99947304708698%
+Core Fuel Integrity: 99.35442150013085%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.56158109411456°C
+Pressuriser Pressure: 155.18021689485653 bar
+Pressuriser Water Level: 80.37959620004011%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 319.5192317819677°C
+Primary Loop Pressure: 154.1170951647613 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 63 bar
+Secondary Loop Coolant Flow: 300 l/min
+Power Generation Power Output: 298.00634983394946 MW
+Power Generation Thermal Power: 1749.4330403522474 MW
+New update: 8s
+Core Temperature: 330.56410840861844°C
+Core Pressure: 155.19199635621422 bar
+Core Reactivity: 54.90130349990033%
+Core Neutron Flux: 17239563390342.281
+Core Integrity: 99.99931165246201%
+Core Fuel Integrity: 99.26694984811324%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.6419606903146°C
+Pressuriser Pressure: 155.18528650814574 bar
+Pressuriser Water Level: 80.30651616360225%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 321.7984359648089°C
+Primary Loop Pressure: 154.12624664603467 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 97.82246417302984 MW
+Power Generation Thermal Power: 1778.7347117717895 MW
+New update: 9s
+Core Temperature: 330.6446760110766°C
+Core Pressure: 155.182253922117 bar
+Core Reactivity: 55.87574961832608%
+Core Neutron Flux: 17366309673604.398
+Core Integrity: 99.99912838992404%
+Core Fuel Integrity: 99.17801311252465%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.7222672064782°C
+Pressuriser Pressure: 155.17561450298768 bar
+Pressuriser Water Level: 80.23333870282342%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 323.8724273253216°C
+Primary Loop Pressure: 154.1536312082158 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 99.46091596657257 MW
+Power Generation Thermal Power: 1807.992447313916 MW
+New update: 10s
+Core Temperature: 330.72515935489844°C
+Core Pressure: 155.17265737310046 bar
+Core Reactivity: 56.848903952676835%
+Core Neutron Flux: 17492882842581.6
+Core Integrity: 99.99892289320216%
+Core Fuel Integrity: 99.08761349015896%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.80250054518103°C
+Pressuriser Pressure: 155.15855000841395 bar
+Pressuriser Water Level: 80.16006527655442%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 325.76169675193626°C
+Primary Loop Pressure: 154.1958500106727 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 101.09691101230314 MW
+Power Generation Thermal Power: 1837.21231599338 MW
+New update: 11s
+Core Temperature: 330.8055594992038°C
+Core Pressure: 155.1518991058203 bar
+Core Reactivity: 57.8207522900824%
+Core Neutron Flux: 17619287545001.62
+Core Integrity: 99.9986947965747%
+Core Fuel Integrity: 98.99575287435928%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.8826606104576°C
+Pressuriser Pressure: 155.1377678778316 bar
+Pressuriser Water Level: 80.08658426761262%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 327.4846891846597°C
+Primary Loop Pressure: 154.24882703837042 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 102.7307886692965 MW
+Power Generation Thermal Power: 1866.3919510404087 MW
+New update: 12s
+Core Temperature: 330.8858773747994°C
+Core Pressure: 155.13114520252466 bar
+Core Reactivity: 58.791280431952%
+Core Neutron Flux: 17745519994235.61
+Core Integrity: 99.99844373479328%
+Core Fuel Integrity: 98.90243327680726%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 330.96274719472524°C
+Pressuriser Pressure: 155.11508320828008 bar
+Pressuriser Water Level: 80.01289571963787%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 329.0580039791939°C
+Primary Loop Pressure: 154.3101175591307 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 104.3624165956762 MW
+Power Generation Thermal Power: 1895.5324550049263 MW
+New update: 13s
+Core Temperature: 330.9661137038038°C
+Core Pressure: 155.1075352680097 bar
+Core Reactivity: 59.76047419620106%
+Core Neutron Flux: 17871579874625.03
+Core Integrity: 99.99816934311248%
+Core Fuel Integrity: 98.80765665405701%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.04276009044486°C
+Pressuriser Pressure: 155.09140355078097 bar
+Pressuriser Water Level: 79.93897107231797%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 330.49658117915743°C
+Primary Loop Pressure: 154.37735114485562 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 105.99185644235881 MW
+Power Generation Thermal Power: 1924.6328313560657 MW
+New update: 14s
+Core Temperature: 331.0462691116346°C
+Core Pressure: 155.08386082672243 bar
+Core Reactivity: 60.72831941718346%
+Core Neutron Flux: 17997464773074.41
+Core Integrity: 99.99787125727599%
+Core Fuel Integrity: 98.71142501248922%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.12269906151715°C
+Pressuriser Pressure: 155.0671769616996 bar
+Pressuriser Water Level: 79.8648096805852%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 331.8138663880832°C
+Primary Loop Pressure: 154.44877982763833 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 107.61905248666001 MW
+Power Generation Thermal Power: 1953.6929691626606 MW
+New update: 15s
+Core Temperature: 331.1263441130622°C
+Core Pressure: 155.05939820124473 bar
+Core Reactivity: 61.694801946743034%
+Core Neutron Flux: 18123173163836.965
+Core Integrity: 99.99754911352912%
+Core Fuel Integrity: 98.61374036403109%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.20256387119775°C
+Pressuriser Pressure: 155.04262733310276 bar
+Pressuriser Water Level: 79.79040366259764%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 333.0219606451625°C
+Primary Loop Pressure: 154.52285935526535 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 109.24399852567878 MW
+Power Generation Thermal Power: 1982.7122429277124 MW
+New update: 16s
+Core Temperature: 331.2063391459582°C
+Core Pressure: 155.03484506860477 bar
+Core Reactivity: 62.65990765465356%
+Core Neutron Flux: 18248703008393.066
+Core Integrity: 99.99720254862012%
+Core Fuel Integrity: 98.5146047518847%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.2823542748603°C
+Pressuriser Pressure: 155.01786502731673 bar
+Pressuriser Water Level: 79.71575211328368%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 334.13175461670596°C
+Primary Loop Pressure: 154.59836202458627 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 110.86665958370793 MW
+Power Generation Thermal Power: 2011.6902598651602 MW
+New update: 17s
+Core Temperature: 331.28625457294174°C
+Core Pressure: 155.01001813395916 bar
+Core Reactivity: 63.623622429307694%
+Core Neutron Flux: 18374052502795.93
+Core Integrity: 99.9968311998081%
+Core Fuel Integrity: 98.41402023889145%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.3620700269736°C
+Pressuriser Pressure: 154.99294503712431 bar
+Pressuriser Water Level: 79.64085229462327%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 335.15304974226217°C
+Primary Loop Pressure: 154.6742497570914 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 112.48701369746021 MW
+Power Generation Thermal Power: 2040.626506956633 MW
+New update: 18s
+Core Temperature: 331.3660906944907°C
+Core Pressure: 154.98509153405413 bar
+Core Reactivity: 64.58593217822416%
+Core Neutron Flux: 18499219724779.047
+Core Integrity: 99.99643470486782%
+Core Fuel Integrity: 98.31198891354362%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.4417108792682°C
+Pressuriser Pressure: 154.96789430386485 bar
+Pressuriser Water Level: 79.56570320996381%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 336.09466709096336°C
+Primary Loop Pressure: 154.74968325328467 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 114.1050321806584 MW
+Power Generation Thermal Power: 2069.5205372803766 MW
+New update: 19s
+Core Temperature: 331.44584775354866°C
+Core Pressure: 154.960018612647 bar
+Core Reactivity: 65.54682282859184%
+Core Neutron Flux: 18624202820139.56
+Core Integrity: 99.99601270209621%
+Core Fuel Integrity: 98.2085128866796%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.52127658247815°C
+Pressuriser Pressure: 154.94272609139952 bar
+Pressuriser Water Level: 79.49030339609028%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 336.96454542586207°C
+Primary Loop Pressure: 154.82397333756288 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 115.72069004292773 MW
+Power Generation Thermal Power: 2098.3718803759707 MW
+New update: 20s
+Core Temperature: 331.5255259425913°C
+Core Pressure: 154.93484259374708 bar
+Core Reactivity: 66.50628032774569%
+Core Neutron Flux: 18748999913150.54
+Core Integrity: 99.99556483031787%
+Core Fuel Integrity: 98.1035942926608%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.60076688587424°C
+Pressuriser Pressure: 154.91744673149404 bar
+Pressuriser Water Level: 79.41465182202775%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 337.76982941772303°C
+Primary Loop Pressure: 154.8965685639933 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 117.3339609776897 MW
+Power Generation Thermal Power: 2127.1800881180498 MW
+New update: 21s
+Core Temperature: 331.6051254081856°C
+Core Pressure: 154.9095513630716 bar
+Core Reactivity: 67.46429064363137%
+Core Neutron Flux: 18873609152481.188
+Core Integrity: 99.99509072889104%
+Core Fuel Integrity: 97.9972352882549%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.6801815376963°C
+Pressuriser Pressure: 154.89205917628345 bar
+Pressuriser Water Level: 79.33874733565847%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 338.5169490608283°C
+Primary Loop Pressure: 154.96703017430468 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 118.94481992726762 MW
+Power Generation Thermal Power: 2155.944711446316 MW
+New update: 22s
+Core Temperature: 331.6861945043239°C
+Core Pressure: 154.88415618014153 bar
+Core Reactivity: 68.4208320239923%
+Core Neutron Flux: 18998027913845.547
+Core Integrity: 99.99459003771311%
+Core Fuel Integrity: 97.88943805268258%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.75952028503195°C
+Pressuriser Pressure: 154.86656466382436 bar
+Pressuriser Water Level: 79.46258889745988%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 338.411845960901°C
+Primary Loop Pressure: 155.02700394455894 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 120.5532417817065 MW
+Power Generation Thermal Power: 2184.6650627347612 MW
+New update: 23s
+Core Temperature: 331.76555022113763°C
+Core Pressure: 154.85865168077635 bar
+Core Reactivity: 69.37589865341344%
+Core Neutron Flux: 19122254928076.105
+Core Integrity: 99.99406239722629%
+Core Fuel Integrity: 97.78020479954584%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.8389828739294°C
+Pressuriser Pressure: 154.88096959762206 bar
+Pressuriser Water Level: 79.58617541426764%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 338.33954891829205°C
+Primary Loop Pressure: 155.07736904862162 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 122.15918809125208 MW
+Power Generation Thermal Power: 2213.3400645637785 MW
+New update: 24s
+Core Temperature: 331.84503972402337°C
+Core Pressure: 154.89305107590695 bar
+Core Reactivity: 70.32947550278878%
+Core Neutron Flux: 19246287614842.656
+Core Integrity: 99.99350744842617%
+Core Fuel Integrity: 97.66953779631766%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.91856904934366°C
+Pressuriser Pressure: 154.91527695314488 bar
+Pressuriser Water Level: 79.71010592502671%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 338.2967680311471°C
+Primary Loop Pressure: 155.12507545537616 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 659.3908942346256 MW
+Power Generation Thermal Power: 2241.979239189579 MW
+New update: 25s
+Core Temperature: 331.9246613357061°C
+Core Pressure: 154.9273522224317 bar
+Core Reactivity: 71.28154757407343%
+Core Neutron Flux: 19370133996596.92
+Core Integrity: 99.99292483287525%
+Core Fuel Integrity: 97.55743883435818%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 331.9982791552687°C
+Pressuriser Pressure: 154.95960803623584 bar
+Pressuriser Water Level: 79.83437944725102%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: False
+Primary Loop Temperature: 338.2805469811978°C
+Primary Loop Pressure: 155.170516662728 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 667.9229816752287 MW
+Power Generation Thermal Power: 2270.5731594560434 MW
+New update: 26s
+Core Temperature: 332.0044145529249°C
+Core Pressure: 154.97673815041435 bar
+Core Reactivity: 72.23209988965239%
+Core Neutron Flux: 19493783148421.28
+Core Integrity: 99.99231419258383%
+Core Fuel Integrity: 97.44391017638537%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 332.07811353471595°C
+Pressuriser Pressure: 155.00902331360962 bar
+Pressuriser Water Level: 79.95914682875517%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 338.2882203180985°C
+Primary Loop Pressure: 155.21559180263958 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 676.4415870879462 MW
+Power Generation Thermal Power: 2299.12376728617 MW
+New update: 27s
+Core Temperature: 332.0842989741742°C
+Core Pressure: 155.02620804469433 bar
+Core Reactivity: 73.18111749654537%
+Core Neutron Flux: 19617235516940.707
+Core Integrity: 99.99167517012793%
+Core Fuel Integrity: 97.32895398802107%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 338.36817946492727°C
+Pressuriser Pressure: 155.2473864065037 bar
+Pressuriser Water Level: 80.08440890920211%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 338.31739006734915°C
+Primary Loop Pressure: 155.25866639173816 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 684.9472890040048 MW
+Power Generation Thermal Power: 2327.628265778822 MW
+New update: 28s
+Core Temperature: 338.3744211979323°C
+Core Pressure: 155.36216279800738 bar
+Core Reactivity: 74.09753493043591%
+Core Neutron Flux: 19737381758822.41
+Core Integrity: 99.99100740862494%
+Core Fuel Integrity: 97.21257257473214%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 338.39747447625837°C
+Pressuriser Pressure: 155.39249921938 bar
+Pressuriser Water Level: 80.21303053718218%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 338.98690731329685°C
+Primary Loop Pressure: 155.27380256524228 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 693.4392541799407 MW
+Power Generation Thermal Power: 2357.059126846073 MW
+New update: 29s
+Core Temperature: 338.4022145684806°C
+Core Pressure: 155.41186853735056 bar
+Core Reactivity: 75.01264958334083%
+Core Neutron Flux: 19858324085180.156
+Core Integrity: 99.99031055176862%
+Core Fuel Integrity: 97.09471961838983%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 339.06712034383406°C
+Pressuriser Pressure: 155.51086932744144 bar
+Pressuriser Water Level: 80.34214922255569%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 339.6069676022382°C
+Primary Loop Pressure: 155.2972860251687 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 702.2071982062259 MW
+Power Generation Thermal Power: 2384.5297693128823 MW
+New update: 30s
+Core Temperature: 339.0720949467647°C
+Core Pressure: 155.56490576996026 bar
+Core Reactivity: 75.9232363047909%
+Core Neutron Flux: 19976853399791.973
+Core Integrity: 99.98958423167322%
+Core Fuel Integrity: 96.97549312992419%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 339.68730975146076°C
+Pressuriser Pressure: 155.6144838007757 bar
+Pressuriser Water Level: 80.47279828025529%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 340.2457452213473°C
+Primary Loop Pressure: 155.33261252463763 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 710.3911604411295 MW
+Power Generation Thermal Power: 2412.073410244729 MW
+New update: 31s
+Core Temperature: 339.69234474232724°C
+Core Pressure: 155.64411898855457 bar
+Core Reactivity: 76.8295295123785%
+Core Neutron Flux: 20095026361482.582
+Core Integrity: 99.9888281049557%
+Core Fuel Integrity: 96.85488945941195%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 340.32621801962756°C
+Pressuriser Pressure: 155.71158809702771 bar
+Pressuriser Water Level: 80.60423947014084%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 340.89644187856766°C
+Primary Loop Pressure: 155.37201438666781 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 718.5968701354088 MW
+Power Generation Thermal Power: 2439.4625275055364 MW
+New update: 32s
+Core Temperature: 340.3313306104765°C
+Core Pressure: 155.75048831656954 bar
+Core Reactivity: 77.73142175392024%
+Core Neutron Flux: 20212604702897.56
+Core Integrity: 99.98804182732056%
+Core Fuel Integrity: 96.73291633303667%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 340.9770461180378°C
+Pressuriser Pressure: 155.80595332608317 bar
+Pressuriser Water Level: 80.73674435330653%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 341.55966201551126°C
+Primary Loop Pressure: 155.4178057043142 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 726.756544652691 MW
+Power Generation Thermal Power: 2466.7296933904945 MW
+New update: 33s
+Core Temperature: 340.98223460412675°C
+Core Pressure: 155.83917694814204 bar
+Core Reactivity: 78.62883974422998%
+Core Neutron Flux: 20329613667813.496
+Core Integrity: 99.98722505640382%
+Core Fuel Integrity: 96.60957984836715%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 341.6403987598646°C
+Pressuriser Pressure: 155.89953749649885 bar
+Pressuriser Water Level: 80.87013612278795%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 342.23528412106805°C
+Primary Loop Pressure: 155.46765600594455 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 734.8798878225848 MW
+Power Generation Thermal Power: 2493.863798610715 MW
+New update: 34s
+Core Temperature: 341.64566328339305°C
+Core Pressure: 155.93554060231895 bar
+Core Reactivity: 79.52170722629668%
+Core Neutron Flux: 20446034521240.383
+Core Integrity: 99.98637745136591%
+Core Fuel Integrity: 96.48488665843661%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 342.3161542571908°C
+Pressuriser Pressure: 155.99328060052275 bar
+Pressuriser Water Level: 81.00449152881114%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 342.92325393660593°C
+Primary Loop Pressure: 155.52196412616834 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 742.9635900027755 MW
+Power Generation Thermal Power: 2520.8665647118364 MW
+New update: 35s
+Core Temperature: 342.3214947722637°C
+Core Pressure: 156.0283113470108 bar
+Core Reactivity: 80.40994861901973%
+Core Neutron Flux: 20561861426613.81
+Core Integrity: 99.98549867303052%
+Core Fuel Integrity: 96.35884333020101%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 343.00425842813473°C
+Pressuriser Pressure: 156.08766635886766 bar
+Pressuriser Water Level: 81.13977464228125%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 343.6235113025276°C
+Primary Loop Pressure: 155.57996199122823 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 751.0081640704012 MW
+Power Generation Thermal Power: 2547.7339514237965 MW
+New update: 36s
+Core Temperature: 343.00967489167°C
+Core Pressure: 156.1238487022419 bar
+Core Reactivity: 81.29348867786338%
+Core Neutron Flux: 20677082819210.133
+Core Integrity: 99.98458838386307%
+Core Fuel Integrity: 96.23145663262981%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 343.7046510771699°C
+Pressuriser Pressure: 156.18292764020518 bar
+Pressuriser Water Level: 81.27601312930368%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 344.33599463715376°C
+Primary Loop Pressure: 155.64158420329468 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 759.0124063616727 MW
+Power Generation Thermal Power: 2574.4646351609363 MW
+New update: 37s
+Core Temperature: 343.7101434348223°C
+Core Pressure: 156.21932218090421 bar
+Core Reactivity: 82.17225252701557%
+Core Neutron Flux: 20791689887862.496
+Core Integrity: 99.98364624802123%
+Core Fuel Integrity: 96.10273340087177%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 344.41727065028306°C
+Pressuriser Pressure: 156.27918456547184 bar
+Pressuriser Water Level: 81.41320635111272%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 345.06064183450104°C
+Primary Loop Pressure: 155.70648698143066 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 766.9759225583623 MW
+Power Generation Thermal Power: 2601.0559063869355 MW
+New update: 38s
+Core Temperature: 344.42283883516365°C
+Core Pressure: 156.31632717717324 bar
+Core Reactivity: 83.04616566684847%
+Core Neutron Flux: 20905672473071.78
+Core Integrity: 99.98267193137144%
+Core Fuel Integrity: 95.97268060555243%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 345.14205504085214°C
+Pressuriser Pressure: 156.376495204184 bar
+Pressuriser Water Level: 81.55136962288445%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 345.79738948776077°C
+Primary Loop Pressure: 155.77451642530335 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 774.8979054444412 MW
+Power Generation Thermal Power: 2627.5057417180974 MW
+New update: 39s
+Core Temperature: 345.1476989748292°C
+Core Pressure: 156.4141530671768 bar
+Core Reactivity: 83.91515397802985%
+Core Neutron Flux: 21019021139521.082
+Core Integrity: 99.98166510152284%
+Core Fuel Integrity: 95.84130531846652%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 345.87894085738367°C
+Pressuriser Pressure: 156.47488975239042 bar
+Pressuriser Water Level: 81.69051115355622%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 346.5461733073267°C
+Primary Loop Pressure: 155.84546109954482 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 782.7777522201832 MW
+Power Generation Thermal Power: 2653.8117796593933 MW
+New update: 40s
+Core Temperature: 345.8846604502414°C
+Core Pressure: 156.51320042522235 bar
+Core Reactivity: 84.77914372896332%
+Core Neutron Flux: 21131726152555.727
+Core Integrity: 99.98062542785246%
+Core Fuel Integrity: 95.70861472948356%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 346.62786381848025°C
+Pressuriser Pressure: 156.57438302146085 bar
+Pressuriser Water Level: 81.83064315780844%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 347.3069279114478°C
+Primary Loop Pressure: 155.91916848750546 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 790.6147593568609 MW
+Power Generation Thermal Power: 2679.9718401770056 MW
+New update: 41s
+Core Temperature: 346.6336589682623°C
+Core Pressure: 156.61329114906422 bar
+Core Reactivity: 85.63806158141684%
+Core Neutron Flux: 21243777998318.688
+Core Integrity: 99.97955258153483%
+Core Fuel Integrity: 95.5746161374747%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 347.3887585546056°C
+Pressuriser Pressure: 156.67498289893027 bar
+Pressuriser Water Level: 81.97177606929908%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 348.07958693721775°C
+Primary Loop Pressure: 155.99548188923663 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 798.4082773860662 MW
+Power Generation Thermal Power: 2705.9836677186977 MW
+New update: 42s
+Core Temperature: 347.3946291473671°C
+Core Pressure: 156.71452608843697 bar
+Core Reactivity: 86.49183459705475%
+Core Neutron Flux: 21355167127424.176
+Core Integrity: 99.9784462355692%
+Core Fuel Integrity: 95.43931695408877%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 348.16155871328704°C
+Pressuriser Pressure: 156.77669342472356 bar
+Pressuriser Water Level: 82.11392133018346%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 348.86408299209205°C
+Primary Loop Pressure: 156.07426873224904 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 806.1576343411954 MW
+Power Generation Thermal Power: 2731.845061693053 MW
+New update: 43s
+Core Temperature: 348.16750462315304°C
+Core Pressure: 156.81686084517844 bar
+Core Reactivity: 87.34039024347987%
+Core Neutron Flux: 21465884086041.043
+Core Integrity: 99.97730606480772%
+Core Fuel Integrity: 95.30272470100411%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 348.9461969134222°C
+Pressuriser Pressure: 156.87951688580117 bar
+Pressuriser Water Level: 82.25708993863525%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 349.6603476860447°C
+Primary Loop Pressure: 156.15540389263538 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 813.8621746293887 MW
+Power Generation Thermal Power: 2757.553812051677 MW
+New update: 44s
+Core Temperature: 348.95221800249834°C
+Core Pressure: 156.9203210151138 bar
+Core Reactivity: 88.18365640047742%
+Core Neutron Flux: 21575919452099.418
+Core Integrity: 99.97613174598297%
+Core Fuel Integrity: 95.16484701040153%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 349.74260477598335°C
+Pressuriser Pressure: 156.98345457390712 bar
+Pressuriser Water Level: 82.40129314878638%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 350.4683116237159°C
+Primary Loop Pressure: 156.23877603428267 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 821.5212398403954 MW
+Power Generation Thermal Power: 2783.1077321293956 MW
+New update: 45s
+Core Temperature: 349.7487008943457°C
+Core Pressure: 157.02489570375096 bar
+Core Reactivity: 89.02156136610971%
+Core Neutron Flux: 21685263868740.363
+Core Integrity: 99.97492295773557%
+Core Fuel Integrity: 95.02569162379505%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 350.5507129168647°C
+Pressuriser Pressure: 157.0885073042168 bar
+Pressuriser Water Level: 82.54654210582389%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 351.2879044168436°C
+Primary Loop Pressure: 156.32428272375512 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 829.1341785302158 MW
+Power Generation Thermal Power: 2808.504642570583 MW
+New update: 46s
+Core Temperature: 350.5568839025148°C
+Core Pressure: 157.13059154640095 bar
+Core Reactivity: 89.85403386283508%
+Core Neutron Flux: 21793908028854.09
+Core Integrity: 99.97340093869026%
+Core Fuel Integrity: 94.88526639166652%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 351.37045095894945°C
+Pressuriser Pressure: 157.19467560204166 bar
+Pressuriser Water Level: 82.6928480212879%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 352.119054686696°C
+Primary Loop Pressure: 156.41183138507864 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 836.7003414324862 MW
+Power Generation Thermal Power: 2833.7423796708717 MW
+New update: 47s
+Core Temperature: 351.376696637791°C
+Core Pressure: 157.2374059781809 bar
+Core Reactivity: 90.6810030435628%
+Core Neutron Flux: 21901842684027.152
+Core Integrity: 99.97143390696928%
+Core Fuel Integrity: 94.74357927268298%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 352.2017475347173°C
+Pressuriser Pressure: 157.30195983131995 bar
+Pressuriser Water Level: 82.84022208106971%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 352.96169007164093°C
+Primary Loop Pressure: 156.50133749426496 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 844.2190839436139 MW
+Power Generation Thermal Power: 2858.818791444604 MW
+New update: 48s
+Core Temperature: 352.20806772052646°C
+Core Pressure: 157.34534079174975 bar
+Core Reactivity: 91.502398497687%
+Core Neutron Flux: 22009058641213.305
+Core Integrity: 99.96901576792719%
+Core Fuel Integrity: 94.60063833311075%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 353.044530293722°C
+Pressuriser Pressure: 157.41036024068558 bar
+Pressuriser Water Level: 82.98867548898721%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 353.81573723225176°C
+Primary Loop Pressure: 156.59272429166649 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 851.6897649512049 MW
+Power Generation Thermal Power: 2883.7317398230302 MW
+New update: 49s
+Core Temperature: 353.05092478812526°C
+Core Pressure: 157.45439542754752 bar
+Core Reactivity: 92.31815025707748%
+Core Neutron Flux: 22115546765530.78
+Core Integrity: 99.96614046511641%
+Core Fuel Integrity: 94.4564517461196%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 353.89872590774075°C
+Pressuriser Pressure: 157.51987699537247 bar
+Pressuriser Water Level: 83.13821944326268%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 354.6811218577506°C
+Primary Loop Pressure: 156.68592184891378 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 859.1117474889444 MW
+Power Generation Thermal Power: 2908.479099773829 MW
+New update: 50s
+Core Temperature: 353.90519450019315°C
+Core Pressure: 157.56457037653507 bar
+Core Reactivity: 93.12818880203771%
+Core Neutron Flux: 22221297979977.6
+Core Integrity: 99.96280198080284%
+Core Fuel Integrity: 94.31102779113091%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 354.76426007719385°C
+Pressuriser Pressure: 157.63051018865457 bar
+Pressuriser Water Level: 83.28886514702803%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 355.5577686718818°C
+Primary Loop Pressure: 156.7808665599954 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 866.4843984742865 MW
+Power Generation Thermal Power: 2933.058759961269 MW
+New update: 51s
+Core Temperature: 354.7708025449615°C
+Core Pressure: 157.6758654959868 bar
+Core Reactivity: 93.93244506722422%
+Core Neutron Flux: 22326303266683.69
+Core Integrity: 99.95899433647814%
+Core Fuel Integrity: 94.16437485313284%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 355.6410575370288°C
+Pressuriser Pressure: 157.74225984984375 bar
+Pressuriser Water Level: 83.4406238019879%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 356.4456014391704°C
+Primary Loop Pressure: 156.87750050963814 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 873.807088905128 MW
+Power Generation Thermal Power: 2957.4686226351914 MW
+New update: 52s
+Core Temperature: 355.64767364517365°C
+Core Pressure: 157.78828086359482 bar
+Core Reactivity: 94.73085044752969%
+Core Neutron Flux: 22430553667388.16
+Core Integrity: 99.95471159336884%
+Core Fuel Integrity: 94.01650142200108%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 356.5290420629724°C
+Pressuriser Pressure: 157.85512594720865 bar
+Pressuriser Water Level: 83.59350661062385%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 357.34454297108834°C
+Primary Loop Pressure: 156.97577098391724 bar
+Primary Loop Coolant Flow: 500 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 881.0791938267341 MW
+Power Generation Thermal Power: 2981.706603908017 MW
+New update: 53s
+Core Temperature: 356.535636539658°C
+Core Pressure: 157.90181630728537 bar
+Core Reactivity: 95.52333727905142%
+Core Neutron Flux: 22534040331813.156
+Core Integrity: 99.94994790045452%
+Core Fuel Integrity: 93.86741609180568%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 357.42813647769896°C
+Pressuriser Pressure: 157.96910839006006 bar
+Pressuriser Water Level: 83.6975247736967%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 358.4545056298993°C
+Primary Loop Pressure: 157.07763083309504 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 888.3000924142633 MW
+Power Generation Thermal Power: 3005.770739629518 MW
+New update: 54s
+Core Temperature: 357.43484768041856°C
+Core Pressure: 158.0164718552876 bar
+Core Reactivity: 96.30983720156738%
+Core Neutron Flux: 22636754459786.258
+Core Integrity: 99.94469733063725%
+Core Fuel Integrity: 93.7171275548242%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 358.538203154673°C
+Pressuriser Pressure: 158.08020524440957 bar
+Pressuriser Water Level: 83.80268949224958%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 359.555425204766°C
+Primary Loop Pressure: 157.18269496644464 bar
+Primary Loop Coolant Flow: 400 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 895.4691995146272 MW
+Power Generation Thermal Power: 3029.659002827427 MW
+New update: 55s
+Core Temperature: 358.54467005407326°C
+Core Pressure: 158.12634427399757 bar
+Core Reactivity: 97.08928512684524%
+Core Neutron Flux: 22738587515511.95
+Core Integrity: 99.93885427749892%
+Core Fuel Integrity: 93.56564460468283%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 359.6392278942582°C
+Pressuriser Pressure: 157.88179683304148 bar
+Pressuriser Water Level: 83.75895293498955%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 361.2691791911104°C
+Primary Loop Pressure: 157.29731396990434 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 902.5859112590042 MW
+Power Generation Thermal Power: 3053.398745300873 MW
+New update: 56s
+Core Temperature: 359.6457951862695°C
+Core Pressure: 157.77434601015653 bar
+Core Reactivity: 97.86171259696073%
+Core Neutron Flux: 22839570004996.945
+Core Integrity: 99.93242279105695%
+Core Fuel Integrity: 93.41297466741779%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 361.3529381440454°C
+Pressuriser Pressure: 158.13327714784 bar
+Pressuriser Water Level: 83.71169639509111%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 362.9335401632768°C
+Primary Loop Pressure: 157.36953499192026 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 65 bar
+Secondary Loop Coolant Flow: 500 l/min
+Power Generation Power Output: 909.6583762042185 MW
+Power Generation Thermal Power: 3076.853440465741 MW
+New update: 57s
+Core Temperature: 361.35960305824153°C
+Core Pressure: 158.32842251821086 bar
+Core Reactivity: 98.6240443283437%
+Core Neutron Flux: 22939257873300.11
+Core Integrity: 99.92509623319468%
+Core Fuel Integrity: 93.2591319953945%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 363.0172518596719°C
+Pressuriser Pressure: 157.98616769394434 bar
+Pressuriser Water Level: 83.66998062027322%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: False
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 364.61457317300614°C
+Primary Loop Pressure: 157.49180711867672 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 172.04738821270936 MW
+Power Generation Thermal Power: 3100.327982572636 MW
+New update: 58s
+Core Temperature: 363.02398109625614°C
+Core Pressure: 157.8315522723592 bar
+Core Reactivity: 99.37651574281637%
+Core Neutron Flux: 23037979556854.273
+Core Integrity: 99.9168990256454%
+Core Fuel Integrity: 93.10411559626587%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 364.69824315362644°C
+Pressuriser Pressure: 158.26802726563562 bar
+Pressuriser Water Level: 83.62329614299681%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 366.30567795661744°C
+Primary Loop Pressure: 157.55083640117897 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 173.36000635885324 MW
+Power Generation Thermal Power: 3123.3304496382925 MW
+New update: 59s
+Core Temperature: 364.7050390805767°C
+Core Pressure: 158.50361728181412 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23123330449638.293
+Core Integrity: 99.90782253500419%
+Core Fuel Integrity: 92.94794907378396%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 366.38930125276045°C
+Pressuriser Pressure: 158.12354917243644 bar
+Pressuriser Water Level: 83.58333231581494%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 368.00727929383254°C
+Primary Loop Pressure: 157.67340976366248 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 174.64622764227454 MW
+Power Generation Thermal Power: 3142.6474589022646 MW
+New update: 60s
+Core Temperature: 366.39615308032165°C
+Core Pressure: 157.95171319428778 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23142647458902.266
+Core Integrity: 99.89786144573247%
+Core Fuel Integrity: 92.79081670083885%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 368.09086262614835°C
+Pressuriser Pressure: 158.10881201092204 bar
+Pressuriser Water Level: 83.53784944775782%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 369.7174904019326°C
+Primary Loop Pressure: 157.73009945746853 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.72637041028497 MW
+Power Generation Thermal Power: 3143.075408870688 MW
+New update: 61s
+Core Temperature: 368.0977164310129°C
+Core Pressure: 158.20641027745467 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23143075408870.688
+Core Integrity: 99.88701029169218%
+Core Fuel Integrity: 92.63366293039532%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 369.80102825138033°C
+Pressuriser Pressure: 158.1451255414618 bar
+Pressuriser Water Level: 83.49491355053236%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 371.427050709276°C
+Primary Loop Pressure: 157.80687362140984 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.7502999460193 MW
+Power Generation Thermal Power: 3143.6286888882064 MW
+New update: 62s
+Core Temperature: 369.8078836778185°C
+Core Pressure: 158.13438711530426 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23143628688888.207
+Core Integrity: 99.87526476558587%
+Core Fuel Integrity: 92.4764814959509%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 371.5105456228265°C
+Pressuriser Pressure: 158.20234929537597 bar
+Pressuriser Water Level: 83.4512574216854%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 373.1369483505743°C
+Primary Loop Pressure: 157.86896086078715 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.7812375203322 MW
+Power Generation Thermal Power: 3144.1346608222884 MW
+New update: 63s
+Core Temperature: 371.5174021075501°C
+Core Pressure: 158.2570890864656 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23144134660822.29
+Core Integrity: 99.86262518490608%
+Core Fuel Integrity: 92.3192747629098%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 373.220399607996°C
+Pressuriser Pressure: 158.2678031907273 bar
+Pressuriser Water Level: 83.40882831255006%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 374.847061056683°C
+Primary Loop Pressure: 157.93708184954693 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.80952978431299 MW
+Power Generation Thermal Power: 3144.6700089062074 MW
+New update: 64s
+Core Temperature: 373.22725726170177°C
+Core Pressure: 158.29477387148899 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23144670008906.207
+Core Integrity: 99.84909137496595%
+Core Fuel Integrity: 92.16204126246448%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 374.93046988499555°C
+Pressuriser Pressure: 158.3368010353508 bar
+Pressuriser Water Level: 83.36677605126495%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 376.557415681638°C
+Primary Loop Pressure: 158.00215544408246 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.8394646646721 MW
+Power Generation Thermal Power: 3145.1925225858786 MW
+New update: 65s
+Core Temperature: 374.9373286751471°C
+Core Pressure: 158.38028328161928 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23145192522585.88
+Core Integrity: 99.834663220944%
+Core Fuel Integrity: 92.0047816363352%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 376.6407824576893°C
+Pressuriser Pressure: 158.40729909812399 bar
+Pressuriser Water Level: 83.32557888408114%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 378.26800324228185°C
+Primary Loop Pressure: 158.0692235369671 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.86868188792707 MW
+Power Generation Thermal Power: 3145.7223945070045 MW
+New update: 66s
+Core Temperature: 376.64764240083053°C
+Core Pressure: 158.44413082757677 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23145722394507.004
+Core Integrity: 99.81934059515267%
+Core Fuel Integrity: 91.84749551660984%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 378.3513288211659°C
+Pressuriser Pressure: 158.4785752807008 bar
+Pressuriser Water Level: 83.28502019235691%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 379.97882835539025°C
+Primary Loop Pressure: 158.13593260813633 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.8983105595167 MW
+Power Generation Thermal Power: 3146.2490683008737 MW
+New update: 67s
+Core Temperature: 378.3581899102457°C
+Core Pressure: 158.51997660221792 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23146249068300.875
+Core Integrity: 99.80312337407669%
+Core Fuel Integrity: 91.6901830631948%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 380.0621133755826°C
+Pressuriser Pressure: 158.55029755201917 bar
+Pressuriser Water Level: 83.24521995837908%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 381.68988904502623°C
+Primary Loop Pressure: 158.2035103494535 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.92776040249052 MW
+Power Generation Thermal Power: 3146.7776640843736 MW
+New update: 68s
+Core Temperature: 380.0689756147787°C
+Core Pressure: 158.59049251472717 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23146777664084.375
+Core Integrity: 99.7860114320351%
+Core Fuel Integrity: 91.53284417999058%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 381.7731342649846°C
+Pressuriser Pressure: 158.62235704043303 bar
+Pressuriser Water Level: 83.20612488352636%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 383.4011865340437°C
+Primary Loop Pressure: 158.27134220826372 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.9573177167179 MW
+Power Generation Thermal Power: 3147.3055470941385 MW
+New update: 69s
+Core Temperature: 381.7799976527067°C
+Core Pressure: 158.6641793021123 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23147305547094.14
+Core Integrity: 99.76800464425374%
+Core Fuel Integrity: 91.37547890263586%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 383.4843926589272°C
+Pressuriser Pressure: 158.6946995726463 bar
+Pressuriser Water Level: 83.16776667654747%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 385.11272041945705°C
+Primary Loop Pressure: 158.33971957167225 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 175.98683517501394 MW
+Power Generation Thermal Power: 3147.8340093654297 MW
+New update: 70s
+Core Temperature: 383.49125719640773°C
+Core Pressure: 158.7367053365115 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23147834009365.43
+Core Integrity: 99.74910288538119%
+Core Fuel Integrity: 91.2180872021676%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 385.1958881861336°C
+Pressuriser Pressure: 158.76730980995202 bar
+Pressuriser Water Level: 83.13013372991259%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 386.82449110183484°C
+Primary Loop Pressure: 158.40847458482764 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.01638502368363 MW
+Power Generation Thermal Power: 3148.3623914344885 MW
+New update: 71s
+Core Temperature: 385.2027538731627°C
+Core Pressure: 158.81021342360887 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23148362391434.49
+Core Integrity: 99.72930603024516%
+Core Fuel Integrity: 91.06066908259587%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 386.90762123556476°C
+Pressuriser Pressure: 158.8401793070303 bar
+Pressuriser Water Level: 83.09323586414867%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 388.53649857468486°C
+Primary Loop Pressure: 158.47766886849894 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.04593038771182 MW
+Power Generation Thermal Power: 3148.8910183076005 MW
+New update: 72s
+Core Temperature: 386.9144880726426°C
+Core Pressure: 158.8836194927773 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23148891018307.6
+Core Integrity: 99.70861395347949%
+Core Fuel Integrity: 90.90322453168048%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 388.619591810549°C
+Pressuriser Pressure: 158.91330664995832 bar
+Pressuriser Water Level: 83.05707205907643%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 390.24874303363447°C
+Primary Loop Pressure: 158.5472501027221 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.07548944036668 MW
+Power Generation Thermal Power: 3149.419724351873 MW
+New update: 73s
+Core Temperature: 388.6264597978135°C
+Core Pressure: 158.9574634584477 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23149419724351.875
+Core Integrity: 99.68702652971349%
+Core Fuel Integrity: 90.74575354546289%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 390.33180010569356°C
+Pressuriser Pressure: 158.98669107496943 bar
+Pressuriser Water Level: 83.02164669366091%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 391.96122457222833°C
+Primary Loop Pressure: 158.61722467631634 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.10505292000892 MW
+Power Generation Thermal Power: 3149.9485909386894 MW
+New update: 74s
+Core Temperature: 390.3386692434603°C
+Core Pressure: 159.03147421785204 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23149948590938.688
+Core Integrity: 99.66454363347813%
+Core Fuel Integrity: 90.58825611591595%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 392.044246218922°C
+Pressuriser Pressure: 159.06033315528762 bar
+Pressuriser Water Level: 82.98696143583943%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 393.6739433348209°C
+Primary Loop Pressure: 158.68757128659382 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.13462537665507 MW
+Power Generation Thermal Power: 3150.477576182911 MW
+New update: 75s
+Core Temperature: 392.05111650741486°C
+Core Pressure: 159.10578818225912 bar
+Core Reactivity: 100%
+Core Neutron Flux: 23150477576182.91
+Core Integrity: 99.6411651392534%
+Core Fuel Integrity: 90.43073223710681%
+Control Rods Insertion Level: 1%
+Pressuriser Temperature: 393.7569302962567°C
+Pressuriser Pressure: 159.13423345817063 bar
+Pressuriser Water Level: 82.95301931766203%
+Pressuriser Heating Power: 50KW
+Pressuriser Heater On: False
+Pressuriser Relief Valve Open: True
+Pressuriser Spray Nozzles Active: True
+Primary Loop Temperature: 395.3868994401717°C
+Primary Loop Pressure: 158.75828418377213 bar
+Primary Loop Coolant Flow: 100 l/min
+Secondary Loop Temperature: 150°C
+Secondary Loop Pressure: 61 bar
+Secondary Loop Coolant Flow: 100 l/min
+Power Generation Power Output: 176.16420446822778 MW
+Power Generation Thermal Power: 3151.0067002305896 MW
